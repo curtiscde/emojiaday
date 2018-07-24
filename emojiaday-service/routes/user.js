@@ -5,6 +5,7 @@ module.exports = (apiRoutes) => {
         console.log('👩‍💼 GET User');
 
         res.json({
+            userid: 'google|123456',
             name: 'John Doe',
             dates: [
                 {
