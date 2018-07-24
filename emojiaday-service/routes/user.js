@@ -8,7 +8,8 @@ module.exports = (apiRoutes) => {
             name: 'John Doe',
             dates: [
                 {
-                    
+                    date: '20180724',
+                    emoji: 'smile'
                 }
             ]
         });
