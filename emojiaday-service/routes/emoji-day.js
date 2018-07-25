@@ -3,20 +3,21 @@ const Emoji = require('../models/emoji');
 
 module.exports = (apiRoutes) => {
 
-    apiRoutes.get('/emoji/day/:day', (req, res) => {
+    apiRoutes.get('/emoji/day', (req, res) => {
         console.log('GET emoji');
         res.json();
     });
 
-    apiRoutes.post('/emoji/day/:day', (req, res) => {
+    apiRoutes.post('/emoji/day', (req, res) => {
         console.log('POST emoji day', req.params.day);
 
-        const date = moment(req.params.day).toDate();
-        console.log('data', date);
+
+        const date = moment(req.body.day).toDate();
+        const emoji = req.body.emoji;
 
         Emoji.create({
             userid: '123',
-            emoji: 'smile',
+            emoji: emoji,
             date: date
         }, (err, emoji) => {
             if (err) {
