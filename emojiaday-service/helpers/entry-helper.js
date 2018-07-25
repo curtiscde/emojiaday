@@ -1,15 +1,13 @@
-import Emoji from '../models/emoji';
-import { resolve } from 'dns';
+import Entry from '../models/entry';
 
-export default class emojiHelper {
+export default class entryHelper {
 
-  static getEmojiDayUser(date, userid) {
+  static getEntryByDateUser(date, userid) {
     return new Promise((resolve, reject) => {
-      Emoji.find({
+      Entry.find({
         userid: userid,
         date: date
       }, (err, emoji) => {
-        console.log('sdsd');
         if (err){
           reject(err);
         }

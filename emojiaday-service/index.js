@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
-require('./routes/emoji-day.js')(apiRoutes);
+require('./routes/entry.js')(apiRoutes);
 
 app.use('/api', apiRoutes);
 
