@@ -1,6 +1,6 @@
 import express from 'express';
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 
 const app = express();
 const apiRoutes = express.Router();
