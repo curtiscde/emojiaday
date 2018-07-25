@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const app = express();
 const apiRoutes = express.Router();
@@ -17,6 +18,10 @@ mongoose.connect(process.env.dbconn)
     console.log('💾 DB connected');
 })
 .catch(console.log);
+
+app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 require('./routes/emoji-day.js')(apiRoutes);
 

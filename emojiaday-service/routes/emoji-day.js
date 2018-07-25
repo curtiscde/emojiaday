@@ -11,8 +11,9 @@ module.exports = (apiRoutes) => {
     apiRoutes.post('/emoji/day', (req, res) => {
         console.log('POST emoji day', req.params.day);
 
+        console.log(req.body);
 
-        const date = moment(req.body.day).toDate();
+        const date = moment(req.body.date).toDate();
         const emoji = req.body.emoji;
 
         Emoji.create({
