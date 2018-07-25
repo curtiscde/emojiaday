@@ -1,5 +1,6 @@
-const moment = require('moment');
-const Emoji = require('../models/emoji');
+import moment from 'moment';
+import Emoji from '../models/emoji';
+import emojiHelper from '../helpers/emoji-helper';
 
 module.exports = (apiRoutes) => {
 
@@ -11,23 +12,34 @@ module.exports = (apiRoutes) => {
     apiRoutes.post('/emoji/day', (req, res) => {
         console.log('POST emoji day', req.params.day);
 
-        console.log(req.body);
-
+        const userid = '124';
         const date = moment(req.body.date).toDate();
         const emoji = req.body.emoji;
+        
+        emojiHelper.getEmojiDayUser(date, userid).then(data => {
 
-        Emoji.create({
-            userid: '123',
-            emoji: emoji,
-            date: date
-        }, (err, emoji) => {
-            if (err) {
-                res.send(err);
+            if (data.length){
+                res.status(500).send(`Entry already exists for ${userid} on ${date}`);
             }
             else{
-                res.json(emoji);
+                Emoji.create({
+                    userid: userid,
+                    emoji: emoji,
+                    date: date
+                }, (err, emoji) => {
+                    if (err) {
+                        res.send(err);
+                    }
+                    else{
+                        res.json(emoji);
+                    }
+                });
             }
+
         });
+
+
+        
     });
 
     console.log('😄 emoji-day routes loaded');
