@@ -1,6 +1,7 @@
 import moment from 'moment';
 import Entry from '../models/entry';
 import entryHelper from '../helpers/entry-helper';
+import authHelper from '../helpers/auth-helper';
 
 module.exports = (apiRoutes) => {
 
@@ -9,10 +10,10 @@ module.exports = (apiRoutes) => {
         res.json();
     });
 
-    apiRoutes.post('/entry/day', (req, res) => {
+    apiRoutes.post('/entry/day', authHelper.jwtCheck, (req, res) => {
         console.log('📩 POST entry day', req.params.day);
 
-        const userid = '124';
+        const userid = req.user.sub;
         const date = moment(req.body.date).toDate();
         const emoji = req.body.emoji;
         
