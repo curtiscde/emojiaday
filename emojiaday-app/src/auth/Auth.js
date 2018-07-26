@@ -1,13 +1,14 @@
 import auth0 from 'auth0-js';
 import history from '../history';
+import config from '../config';
 
 export default class Auth {
 
   auth0 = new auth0.WebAuth({
-    domain: 'emojiaday.eu.auth0.com',
-    clientID: 'sZqB91uimtN4z0WeBIs6BX6z0PqP4eJ4',
-    redirectUri: 'http://localhost:3000/callback',
-    audience: 'https://emojiaday-dev.com',
+    domain: config.auth0.domain,
+    clientID: config.auth0.clientID,
+    redirectUri: config.auth0.redirectUri,
+    audience: config.auth0.audience,
     responseType: 'token id_token',
     scope: 'openid'
   });
