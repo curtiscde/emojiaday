@@ -20,7 +20,14 @@ class App extends Component {
         <Router history={history}>
           <div>
             <NavBar isAuthenticated={auth.isAuthenticated}/>
-            <Route exact path="/" />
+            <Route exact path="/" render={() => {
+              if (auth.isAuthenticated()){
+                return <p>Logged In!</p>;
+              }
+              else{
+                return <p>Logged Out</p>;
+              }
+            }} />
             <Route exact path="/callback" render={(props) => {
                 handleAuthentication(props);
                 return <AuthCallback auth={auth}/>;
