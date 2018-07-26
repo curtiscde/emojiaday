@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import Auth from './auth/Auth';
 import NavBar from './components/NavBar';
 import Login from './components/Login';
 import AuthCallback from './components/AuthCallback';
+import history from './history';
 
 const auth = new Auth();
 
@@ -17,18 +18,17 @@ class App extends Component {
 
     return (
       <div>
-        <NavBar/>
-        <BrowserRouter>
+        <Router history={history}>
           <div>
-            <Route exact path="/" render={() => (<Login auth={auth}/>)} />
+            <NavBar auth={auth}/>
+            <Route exact path="/" />
             <Route exact path="/callback" render={(props) => {
                 handleAuthentication(props);
                 return <AuthCallback auth={auth}/>;
               }}
             />
-            <Route exact path="/home" render={() => (<NavBar/>)} />
           </div>
-        </BrowserRouter>
+        </Router>
       </div>
     );
   }
