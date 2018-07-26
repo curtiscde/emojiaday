@@ -3,18 +3,11 @@ import history from '../history';
 
 export default class Auth {
 
-  constructor(){
-    this.auth0Domain = 'emojiaday.eu.auth0.com';
-    this.auth0ClientID = 'sZqB91uimtN4z0WeBIs6BX6z0PqP4eJ4';
-    this.auth0RedirectUri = 'http://localhost:3000/callback';
-    this.auth0Audience = 'https://emojiaday-dev.com';
-  }
-
   auth0 = new auth0.WebAuth({
-    domain: this.auth0Domain,
-    clientID: this.auth0ClientID,
-    redirectUri: this.auth0RedirectUri,
-    audience: this.auth0Audience,
+    domain: 'emojiaday.eu.auth0.com',
+    clientID: 'sZqB91uimtN4z0WeBIs6BX6z0PqP4eJ4',
+    redirectUri: 'http://localhost:3000/callback',
+    audience: 'https://emojiaday-dev.com',
     responseType: 'token id_token',
     scope: 'openid'
   });
