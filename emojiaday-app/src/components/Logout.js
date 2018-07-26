@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Auth from '../auth/Auth';
 
-export default class Login extends Component {
+export default class Logout extends Component {
   render() {
 
     const auth = new Auth();
 
-    const openAuth0 = () => {
-      auth.login();
+    const logout = () => {
+      auth.logout();
     };
 
     return (
-      <Button color="inherit" onClick={openAuth0}>
-        Login
+      <Button color="inherit" onClick={logout}>
+        Logout
       </Button>
     );
   }

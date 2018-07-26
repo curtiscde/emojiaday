@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import Auth from './auth/Auth';
 import NavBar from './components/NavBar';
-import Login from './components/Login';
 import AuthCallback from './components/AuthCallback';
 import history from './history';
 
@@ -20,7 +19,7 @@ class App extends Component {
       <div>
         <Router history={history}>
           <div>
-            <NavBar auth={auth}/>
+            <NavBar isAuthenticated={auth.isAuthenticated}/>
             <Route exact path="/" />
             <Route exact path="/callback" render={(props) => {
                 handleAuthentication(props);
