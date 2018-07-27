@@ -31,8 +31,6 @@ export default class AddEntry extends Component {
     
     const emojiId = this.state.emoji;
 
-    console.log('emojiid', emojiId);
-
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('id_token')}`;
     axios.post(`${Config.serviceUri}/api/entry/day`, {
       day: '20180801',
