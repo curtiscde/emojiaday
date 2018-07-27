@@ -7,15 +7,30 @@ export default class entryHelper {
       Entry.find({
         userid: userid,
         date: date
-      }, (err, emoji) => {
+      }, (err, entries) => {
         if (err){
           reject(err);
         }
         else {
-          resolve(emoji);
+          resolve(entries);
         }
       });
     });
   };
+
+  static getEntriesByUser(userid){
+    return new Promise((resolve, reject) => {
+      Entry.find({
+        userid: userid
+      }, (err, entries) => {
+        if (err){
+          reject(err);
+        }
+        else {
+          resolve(entries);
+        }
+      });
+    });
+  }
 
 }
