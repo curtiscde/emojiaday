@@ -8,18 +8,45 @@ import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 
 export default class AddEntry extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      emoji: null
+    };
+
+    this.addEmoji = this.addEmoji.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  addEmoji(data){
+    this.setState({emoji: data.id});
+  };
+
+  handleSubmit(e){
+    e.preventDefault();
+    
+    const emojiId = this.state.emoji;
+
+    console.log('emojiid', emojiId);
+    
+  };
+
   render(){
     return (
-      <Card>
-        <CardContent>
-          <Typography variant="title">Add Entry</Typography>
-          <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
-          <Picker/>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Submit</Button>
-        </CardActions>
-      </Card>
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <Card>
+          <CardContent>
+            <Typography variant="title">Add Entry</Typography>
+            <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
+            <Picker title='Pick your emoji…' onSelect={this.addEmoji} />
+          </CardContent>
+          <CardActions>
+            <Button type="submit" size="small">Submit</Button>
+          </CardActions>
+        </Card>
+      </form>
     )
   }
 }
