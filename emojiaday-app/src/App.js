@@ -25,7 +25,7 @@ class App extends Component {
             <NavBar isAuthenticated={auth.isAuthenticated}/>
             <Route exact path="/" render={() => {
               if (auth.isAuthenticated()){
-                return <AddEntry/>;
+                return <div>Logged In</div>;
               }
               else{
                 return <p>Logged Out</p>;
@@ -36,6 +36,7 @@ class App extends Component {
                 return <AuthCallback auth={auth}/>;
               }}
             />
+            <Route exact path="/addentry" component={AddEntry} />
             <Footer/>
           </div>
         </Router>
