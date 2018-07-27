@@ -5,10 +5,10 @@ import authHelper from '../helpers/auth-helper';
 
 module.exports = (apiRoutes) => {
 
-    apiRoutes.get('/entry/day', (req, res) => {
-        console.log('GET entry');
-        res.json();
-    });
+    // apiRoutes.get('/entry/day', (req, res) => {
+    //     console.log('GET entry');
+    //     res.json();
+    // });
 
     apiRoutes.post('/entry/day', authHelper.jwtCheck, (req, res) => {
         console.log('📩 POST entry day', req.params.day);
@@ -43,5 +43,5 @@ module.exports = (apiRoutes) => {
         
     });
 
-    console.log('😄 entry routes loaded');
+    console.log('😄 entry post routes loaded');
 };

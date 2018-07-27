@@ -30,7 +30,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-require('./routes/entry.js')(apiRoutes);
+require('./routes/entry-get.js')(apiRoutes);
+require('./routes/entry-post.js')(apiRoutes);
 
 app.use('/api', apiRoutes);
 
