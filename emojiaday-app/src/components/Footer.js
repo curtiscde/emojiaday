@@ -23,6 +23,7 @@ export default class Footer extends Component {
     
     render(){
         return (
+            this.props.isAuthenticated() ?
             <footer>
                 <BottomNavigation
                     onChange={this.handleChange}
@@ -32,6 +33,7 @@ export default class Footer extends Component {
                     <BottomNavigationAction label="Add Entry" value="addentry" icon={<AddIcon />} />
                 </BottomNavigation>
             </footer>
+            : null
         )
     }
 }

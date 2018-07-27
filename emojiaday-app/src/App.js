@@ -36,7 +36,7 @@ class App extends Component {
               }}
             />
             <Route exact path="/addentry" component={AddEntry} />
-            <Footer />
+            <Footer isAuthenticated={auth.isAuthenticated} />
           </div>
         </Router>
       </div>
