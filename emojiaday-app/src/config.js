@@ -4,7 +4,8 @@ const prod = {
     clientID: 'irAJWsNpHU20Nfv4rODvDLjhjIQFoy5D',
     redirectUri: 'https://emojiaday.netlify.com/callback',
     audience: 'https://emojiaday.com',
-  }
+  },
+  serviceUri: ''
 }
 
 const dev = {
@@ -13,7 +14,8 @@ const dev = {
     clientID: 'sZqB91uimtN4z0WeBIs6BX6z0PqP4eJ4',
     redirectUri: 'http://localhost:3000/callback',
     audience: 'https://emojiaday-dev.com',
-  }
+  },
+  serviceUri: 'http://localhost:8080'
 }
 
 const config = process.env.REACT_APP_STAGE === 'production'
