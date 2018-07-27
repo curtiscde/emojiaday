@@ -3,6 +3,7 @@ import { Router, Route } from 'react-router-dom';
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
+import List from './components/List';
 import AddEntry from './components/AddEntry';
 import AuthCallback from './components/AuthCallback';
 import Footer from './components/Footer';
@@ -24,7 +25,7 @@ class App extends Component {
             <NavBar isAuthenticated={auth.isAuthenticated}/>
             <Route exact path="/" render={() => {
               if (auth.isAuthenticated()){
-                return <div>Logged In</div>;
+                return <List/>;
               }
               else{
                 return <p>Logged Out</p>;
