@@ -18,6 +18,9 @@ export default class Footer extends Component {
                 history.replace('/addentry');
                 break;
             }
+            default:{
+                console.log(`Missing action for ${value}`);
+            }
         }
     }
     
