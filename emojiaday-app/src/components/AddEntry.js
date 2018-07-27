@@ -48,7 +48,12 @@ export default class AddEntry extends Component {
           <CardContent>
             <Typography variant="title">Add Entry</Typography>
             <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
-            <Picker title='Pick your emoji…' onSelect={this.addEmoji} />
+            <Picker
+              emoji='grinning'
+              set='twitter'
+              title='Pick your emoji…'
+              onSelect={this.addEmoji}
+            />
           </CardContent>
           <CardActions>
             <Button type="submit" size="small">Submit</Button>
