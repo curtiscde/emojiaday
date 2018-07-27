@@ -2,22 +2,34 @@ import React, { Component } from 'react';
 import './Footer.css';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AddIcon from '@material-ui/icons/Add';
+import ListIcon from '@material-ui/icons/List';
+import history from '../history';
 
 export default class Footer extends Component {
+    
+    handleChange(e, value){
+        switch(value){
+            case 'list':{
+                history.replace('/');
+                break;
+            }
+            case 'addentry':{
+                history.replace('/addentry');
+                break;
+            }
+        }
+    }
+    
     render(){
         return (
             <footer>
                 <BottomNavigation
-                    // onChange={this.handleChange}
+                    onChange={this.handleChange}
                     showLabels
-                    // className={classes.root}
                 >
-                    <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-                    <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-                    <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+                    <BottomNavigationAction label="List" value="list" icon={<ListIcon />} />
+                    <BottomNavigationAction label="Add Entry" value="addentry" icon={<AddIcon />} />
                 </BottomNavigation>
             </footer>
         )

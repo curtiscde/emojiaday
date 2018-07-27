@@ -16,9 +16,6 @@ export default class NavBar extends Component {
       <div style={{flexGrow:1}}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton style={{marginLeft: -12, marginRight: 20}} color="inherit" aria-label="Menu">
-              <MenuIcon/>
-            </IconButton>
             <Typography variant="title" color="inherit" style={{flexGrow:1}}>
               Emojiaday
             </Typography>

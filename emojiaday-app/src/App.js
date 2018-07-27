@@ -17,7 +17,6 @@ const handleAuthentication = ({location}) => {
 }
 class App extends Component {
   render() {
-
     return (
       <div>
         <Router history={history}>
@@ -37,7 +36,7 @@ class App extends Component {
               }}
             />
             <Route exact path="/addentry" component={AddEntry} />
-            <Footer/>
+            <Footer />
           </div>
         </Router>
       </div>
