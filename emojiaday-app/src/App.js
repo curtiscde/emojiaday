@@ -5,6 +5,7 @@ import history from './history';
 import NavBar from './components/NavBar';
 import AddEntry from './components/AddEntry';
 import AuthCallback from './components/AuthCallback';
+import Footer from './components/Footer';
 
 const auth = new Auth();
 
@@ -34,6 +35,7 @@ class App extends Component {
                 return <AuthCallback auth={auth}/>;
               }}
             />
+            <Footer/>
           </div>
         </Router>
       </div>
