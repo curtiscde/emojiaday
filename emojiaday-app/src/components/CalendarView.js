@@ -42,7 +42,7 @@ export default class CalendarView extends Component {
 
         const addTileContent = ({date, view}) => {
           const entry = this.getEntryForDate(this.state.entries, date);
-          return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='emojione' size={16} /> : null
+          return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='twitter' size={16} /> : null
         };
 
         return (
