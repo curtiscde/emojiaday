@@ -5,6 +5,7 @@ import Config from '../config';
 export default class List extends Component {
 
     getEntries(){
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
         axios.get(`${Config.serviceUri}/api/entries/user`)
             .then(res => {
                 console.log(res);
