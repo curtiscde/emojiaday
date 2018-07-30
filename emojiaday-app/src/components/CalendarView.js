@@ -20,9 +20,13 @@ export default class CalendarView extends Component {
 
         this.getEntries();
 
+        const addTileContent = ({date, view}) => {
+          return view === 'month' && date.getDay() === 0 ? <p>It's Sunday!</p> : null
+        };
+
         return (
             <div>
-              <Calendar/>
+              <Calendar tileContent={addTileContent}/>
             </div>
         )
     }
