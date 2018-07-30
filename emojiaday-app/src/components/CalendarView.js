@@ -27,12 +27,21 @@ export default class CalendarView extends Component {
             });
     }
 
+    getEntryForDate(entries, date){
+      return entries
+        && entries.filter(entry =>
+          new Date(entry.date).getDate() === date.getDate()
+          && new Date(entry.date).getMonth() === date.getMonth()
+          && new Date(entry.date).getFullYear() === date.getFullYear()
+        );
+    }
+
     render(){
 
         this.getEntries();
 
         const addTileContent = ({date, view}) => {
-          const entry = this.state.entries && this.state.entries.filter(entry => new Date(entry.date).getDate() === date.getDate());
+          const entry = this.getEntryForDate(this.state.entries, date);
           return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='emojione' size={16} /> : null
         };
 
