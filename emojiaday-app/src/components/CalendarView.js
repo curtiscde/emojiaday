@@ -14,6 +14,10 @@ export default class CalendarView extends Component {
     };
   }
 
+  componentDidMount(){
+    this.getEntries();
+  }
+
     getEntries(){
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
         axios.get(`${Config.serviceUri}/api/entries/user`)
@@ -37,8 +41,6 @@ export default class CalendarView extends Component {
     }
 
     render(){
-
-        this.getEntries();
 
         const addTileContent = ({date, view}) => {
           const entry = this.getEntryForDate(this.state.entries, date);
