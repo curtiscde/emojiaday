@@ -1,8 +1,6 @@
 footer {
     bottom: 0;
-    position: absolute;
-    background-color: #3f51b5;
-    color:#fff;
+    position: fixed;
     width:100%;
-    padding:4px 2px;
+    border-top: 1px solid #ccc;
 }

@@ -31,9 +31,7 @@ export default class AddEntry extends Component {
     
     const emojiId = this.state.emoji;
 
-    console.log('emojiid', emojiId);
-
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('id_token')}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.post(`${Config.serviceUri}/api/entry/day`, {
       day: '20180801',
       emoji: emojiId
@@ -50,7 +48,12 @@ export default class AddEntry extends Component {
           <CardContent>
             <Typography variant="title">Add Entry</Typography>
             <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
-            <Picker title='Pick your emoji…' onSelect={this.addEmoji} />
+            <Picker
+              emoji='grinning'
+              set='twitter'
+              title='Pick your emoji…'
+              onSelect={this.addEmoji}
+            />
           </CardContent>
           <CardActions>
             <Button type="submit" size="small">Submit</Button>

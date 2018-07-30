@@ -3,6 +3,7 @@ import { Router, Route } from 'react-router-dom';
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
+import CalendarView from './components/CalendarView';
 import AddEntry from './components/AddEntry';
 import AuthCallback from './components/AuthCallback';
 import Footer from './components/Footer';
@@ -17,7 +18,6 @@ const handleAuthentication = ({location}) => {
 }
 class App extends Component {
   render() {
-
     return (
       <div>
         <Router history={history}>
@@ -25,7 +25,7 @@ class App extends Component {
             <NavBar isAuthenticated={auth.isAuthenticated}/>
             <Route exact path="/" render={() => {
               if (auth.isAuthenticated()){
-                return <AddEntry/>;
+                return <CalendarView/>;
               }
               else{
                 return <p>Logged Out</p>;
@@ -36,7 +36,8 @@ class App extends Component {
                 return <AuthCallback auth={auth}/>;
               }}
             />
-            <Footer/>
+            <Route exact path="/addentry" component={AddEntry} />
+            <Footer isAuthenticated={auth.isAuthenticated} />
           </div>
         </Router>
       </div>
