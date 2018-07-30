@@ -55,14 +55,17 @@ export default class AddEntry extends Component {
 
   render(){
 
-    const emojiPicker = this.state.showPicker ?
+    const selectEmoji = this.state.showPicker ?
       <Picker
         emoji='grinning'
         set='twitter'
         title='Pick your emoji…'
         onSelect={this.addEmoji}
       />
-      : <Button size="small" onClick={this.showEmojiPicker}>Select Emoji{this.state.emoji ? <Emoji emoji={this.state.emoji} set='twitter' size={16} /> : null}</Button>;
+      : <Button
+          size="small"
+          onClick={this.showEmojiPicker}>Select Emoji{this.state.emoji ? <Emoji emoji={this.state.emoji} set='twitter' size={16} /> : null}
+        </Button>;
 
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
@@ -70,7 +73,7 @@ export default class AddEntry extends Component {
           <CardContent>
             <Typography variant="title">Add Entry</Typography>
             <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
-            {emojiPicker}
+            {selectEmoji}
           </CardContent>
           <CardActions>
             <Button type="submit" size="small">Submit</Button>
