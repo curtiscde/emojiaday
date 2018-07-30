@@ -55,6 +55,8 @@ export default class AddEntry extends Component {
 
   render(){
 
+    const selectedEmoji = this.state.emoji ? <div><Emoji emoji={this.state.emoji} set='twitter' size={64} /></div> : null;
+
     const selectEmoji = this.state.showPicker ?
       <Picker
         emoji='grinning'
@@ -64,7 +66,8 @@ export default class AddEntry extends Component {
       />
       : <Button
           size="small"
-          onClick={this.showEmojiPicker}>Select Emoji{this.state.emoji ? <Emoji emoji={this.state.emoji} set='twitter' size={16} /> : null}
+          onClick={this.showEmojiPicker}>
+          Select Emoji
         </Button>;
 
     return (
@@ -73,6 +76,7 @@ export default class AddEntry extends Component {
           <CardContent>
             <Typography variant="title">Add Entry</Typography>
             <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
+            {selectedEmoji}
             {selectEmoji}
           </CardContent>
           <CardActions>
