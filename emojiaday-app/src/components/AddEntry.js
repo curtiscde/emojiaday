@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import 'emoji-mart/css/emoji-mart.css'
-import { Picker } from 'emoji-mart'
+import { Picker, Emoji } from 'emoji-mart'
 import Config from '../config';
 
 export default class AddEntry extends Component {
@@ -15,15 +15,28 @@ export default class AddEntry extends Component {
     super(props);
 
     this.state = {
+      showPicker: false,
       emoji: null
     };
 
+    this.showEmojiPicker = this.showEmojiPicker.bind(this);
     this.addEmoji = this.addEmoji.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  showEmojiPicker(){
+    this.setState({
+      ...this.state,
+      showPicker: true
+    });
+  }
+
   addEmoji(data){
-    this.setState({emoji: data.id});
+    this.setState({
+      ...this.state,
+      showPicker: false,
+      emoji: data.id
+    });
   };
 
   handleSubmit(e){
@@ -33,7 +46,6 @@ export default class AddEntry extends Component {
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.post(`${Config.serviceUri}/api/entry/day`, {
-      day: '20180801',
       emoji: emojiId
     }).then(data => {
       console.log(data);
@@ -42,18 +54,30 @@ export default class AddEntry extends Component {
   };
 
   render(){
+
+    const selectedEmoji = this.state.emoji ? <div><Emoji emoji={this.state.emoji} set='twitter' size={64} /></div> : null;
+
+    const selectEmoji = this.state.showPicker ?
+      <Picker
+        emoji='grinning'
+        set='twitter'
+        title='Pick your emoji…'
+        onSelect={this.addEmoji}
+      />
+      : <Button
+          size="small"
+          onClick={this.showEmojiPicker}>
+          Select Emoji
+        </Button>;
+
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <Card>
           <CardContent>
             <Typography variant="title">Add Entry</Typography>
             <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
-            <Picker
-              emoji='grinning'
-              set='twitter'
-              title='Pick your emoji…'
-              onSelect={this.addEmoji}
-            />
+            {selectedEmoji}
+            {selectEmoji}
           </CardContent>
           <CardActions>
             <Button type="submit" size="small">Submit</Button>
