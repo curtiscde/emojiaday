@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 const app = express();
 const apiRoutes = express.Router();
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 console.log('🚀 App started');
 
