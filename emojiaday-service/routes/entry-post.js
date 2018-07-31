@@ -23,18 +23,44 @@ module.exports = (apiRoutes) => {
                     res.status(500).send(`Entry already exists for ${userid} on ${date}`);
                 }
                 else{
-                    Entry.create({
+
+                    const startOfDay = moment(date).startOf('day');
+                    const endOfDay = moment(date).endOf('day');
+
+                    Entry.findOneAndUpdate({
+                        userid: userid,
+                        date: {
+                            $gte: startOfDay.toDate(),
+                            $lt: endOfDay.toDate()
+                        }
+                    }, {
                         userid: userid,
                         emoji: emoji,
                         date: date
-                    }, (err, emoji) => {
+                    }, {
+                        new: true,
+                        upsert: true
+                    }, (err, entry) => {
                         if (err) {
                             res.status(500).send(err);
                         }
                         else{
-                            res.json(emoji);
+                            res.json(entry);
                         }
                     });
+
+                    // Entry.create({
+                    //     userid: userid,
+                    //     emoji: emoji,
+                    //     date: date
+                    // }, (err, emoji) => {
+                    //     if (err) {
+                    //         res.status(500).send(err);
+                    //     }
+                    //     else{
+                    //         res.json(emoji);
+                    //     }
+                    // });
                 }
     
             });
