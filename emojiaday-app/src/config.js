@@ -5,7 +5,7 @@ const prod = {
     redirectUri: 'https://emojiaday.netlify.com/callback',
     audience: 'https://emojiaday.com',
   },
-  serviceUri: ''
+  serviceUri: 'http://emojiaday-prod.herokuapp.com'
 }
 
 const dev = {
