@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker, Emoji } from 'emoji-mart'
 import Config from '../config';
+import history from '../history';
 
 export default class AddEntry extends Component {
 
@@ -48,7 +49,7 @@ export default class AddEntry extends Component {
     axios.post(`${Config.serviceUri}/api/entry/day`, {
       emoji: emojiId
     }).then(data => {
-      console.log(data);
+      history.replace('/');
     });
     
   };
