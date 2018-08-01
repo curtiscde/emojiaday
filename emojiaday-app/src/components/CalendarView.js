@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import Config from '../config';
-import { Emoji } from 'emoji-mart'
+import { Emoji } from 'emoji-mart';
+import './CalendarView.css';
 
 export default class CalendarView extends Component {
 
@@ -33,11 +34,12 @@ export default class CalendarView extends Component {
 
     getEntryForDate(entries, date){
       return entries
-        && entries.filter(entry =>
-          new Date(entry.date).getDate() === date.getDate()
-          && new Date(entry.date).getMonth() === date.getMonth()
-          && new Date(entry.date).getFullYear() === date.getFullYear()
-        );
+      && entries.filter(entry => {
+          const entryDate = new Date(entry.date);
+          return entryDate.getDate() === date.getDate()
+          && entryDate.getMonth() === date.getMonth()
+          && entryDate.getFullYear() === date.getFullYear()
+        });
     }
 
     render(){
@@ -49,7 +51,7 @@ export default class CalendarView extends Component {
 
         return (
             <div>
-              <Calendar tileContent={addTileContent}/>
+              <Calendar tileContent={addTileContent} className={['calendar']}/>
             </div>
         )
     }
