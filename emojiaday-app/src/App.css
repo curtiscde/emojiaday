@@ -2,3 +2,10 @@ html, body, #root{
     height:100%;
     padding-bottom: 100px;
 }
+
+.grid-container
+{
+    flex-grow: 1;
+    max-width: 900px;
+    margin:0 auto;
+}

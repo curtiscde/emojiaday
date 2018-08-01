@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
@@ -23,20 +24,22 @@ class App extends Component {
         <Router history={history}>
           <div>
             <NavBar isAuthenticated={auth.isAuthenticated}/>
-            <Route exact path="/" render={() => {
-              if (auth.isAuthenticated()){
-                return <CalendarView/>;
-              }
-              else{
-                return <p>Logged Out</p>;
-              }
-            }} />
-            <Route exact path="/callback" render={(props) => {
-                handleAuthentication(props);
-                return <AuthCallback auth={auth}/>;
-              }}
-            />
-            <Route exact path="/addentry" component={AddEntry} />
+            <Grid container class={['grid-container']} spacing={16}>
+              <Route exact path="/" render={() => {
+                if (auth.isAuthenticated()){
+                  return <CalendarView/>;
+                }
+                else{
+                  return <p>Logged Out</p>;
+                }
+              }} />
+              <Route exact path="/callback" render={(props) => {
+                  handleAuthentication(props);
+                  return <AuthCallback auth={auth}/>;
+                }}
+              />
+              <Route exact path="/addentry" component={AddEntry} />
+            </Grid>
             <Footer isAuthenticated={auth.isAuthenticated} />
           </div>
         </Router>

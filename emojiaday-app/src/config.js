@@ -10,8 +10,8 @@ const prod = {
 
 const dev = {
   auth0: {
-    domain: 'emojiaday.eu.auth0.com',
-    clientID: 'sZqB91uimtN4z0WeBIs6BX6z0PqP4eJ4',
+    domain: 'emojiaday-dev.eu.auth0.com',
+    clientID: 'VIe5hty14OTxBdXZTZYbOz4wcghmOMT0',
     redirectUri: 'http://localhost:3000/callback',
     audience: 'https://emojiaday-dev.com',
   },
