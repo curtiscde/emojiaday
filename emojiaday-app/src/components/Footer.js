@@ -3,14 +3,14 @@ import './Footer.css';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddIcon from '@material-ui/icons/Add';
-import ListIcon from '@material-ui/icons/List';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import history from '../history';
 
 export default class Footer extends Component {
     
     handleChange(e, value){
         switch(value){
-            case 'list':{
+            case 'calendar':{
                 history.replace('/');
                 break;
             }
@@ -32,7 +32,7 @@ export default class Footer extends Component {
                     onChange={this.handleChange}
                     showLabels
                 >
-                    <BottomNavigationAction label="List" value="list" icon={<ListIcon />} />
+                    <BottomNavigationAction label="Calendar" value="calendar" icon={<CalendarTodayIcon />} />
                     <BottomNavigationAction label="Add Entry" value="addentry" icon={<AddIcon />} />
                 </BottomNavigation>
             </footer>
