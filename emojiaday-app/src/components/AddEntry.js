@@ -9,6 +9,7 @@ import 'emoji-mart/css/emoji-mart.css'
 import { Picker, Emoji } from 'emoji-mart'
 import Config from '../config';
 import history from '../history';
+import ReactGA from 'react-ga';
 
 export default class AddEntry extends Component {
 
@@ -44,6 +45,12 @@ export default class AddEntry extends Component {
     e.preventDefault();
     
     const emojiId = this.state.emoji;
+
+    ReactGA.event({
+      category: 'Emoji Entry',
+      action: 'Submit',
+      label: emojiId
+    });
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.post(`${Config.serviceUri}/api/entry/day`, {

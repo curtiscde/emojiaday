@@ -5,6 +5,10 @@ const prod = {
     redirectUri: 'https://emojiaday.netlify.com/callback',
     audience: 'https://emojiaday.com',
   },
+  debug: false,
+  googleAnalytics:{
+    trackingId: 'UA-123240885-1'
+  },
   serviceUri: 'https://emojiaday-prod.herokuapp.com'
 }
 
@@ -14,6 +18,10 @@ const dev = {
     clientID: 'VIe5hty14OTxBdXZTZYbOz4wcghmOMT0',
     redirectUri: 'http://localhost:3000/callback',
     audience: 'https://emojiaday-dev.com',
+  },
+  debug: true,
+  googleAnalytics:{
+    trackingId: 'UA-123240885-2'
   },
   serviceUri: 'http://localhost:8080'
 }
