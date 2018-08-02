@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 import Config from '../config';
 import { Emoji } from 'emoji-mart';
 import './CalendarView.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class CalendarView extends Component {
 
@@ -11,7 +12,8 @@ export default class CalendarView extends Component {
     super(props);
 
     this.state = {
-      entries: null
+      entries: null,
+      entriesLoaded: false
     };
   }
 
@@ -24,11 +26,17 @@ export default class CalendarView extends Component {
         axios.get(`${Config.serviceUri}/api/entries/user`)
             .then(res => {
                 this.setState({
-                  entries: res.data
+                  ...this.state,
+                  entries: res.data,
+                  entriesLoaded: true
                 });
             })
             .catch(function (error) {
               console.log(error);
+              this.setState({
+                ...this.state,
+                entriesLoaded: true
+              });
             });
     }
 
@@ -49,9 +57,15 @@ export default class CalendarView extends Component {
           return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='twitter' size={16} /> : null
         };
 
+        const view = this.state.entriesLoaded ?
+          <Calendar tileContent={addTileContent} className={['calendar']}/> :
+          <div class={['loading']}>
+            <CircularProgress size={80} />
+          </div>
+
         return (
             <div>
-              <Calendar tileContent={addTileContent} className={['calendar']}/>
+              {view}
             </div>
         )
     }
