@@ -1,6 +1,7 @@
 import auth0 from 'auth0-js';
 import history from '../history';
 import config from '../config';
+import ReactGA from 'react-ga';
 
 export default class Auth {
 
@@ -18,11 +19,13 @@ export default class Auth {
   }
 
   logout() {
-    // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    // navigate to the home route
+    ReactGA.event({
+      category: 'Authentication',
+      action: 'Logout'
+    });
     history.replace('/');
   }
 
