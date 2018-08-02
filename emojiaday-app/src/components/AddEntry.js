@@ -75,7 +75,7 @@ export default class AddEntry extends Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <Card>
           <CardContent>
-            <Typography variant="title">Add Entry</Typography>
+            <Typography variant="title">Add Today's Emoji</Typography>
             <Typography variant="subheading">Add your emoji of the day by selecting from the emoji picker below</Typography>
             {selectedEmoji}
             {selectEmoji}
