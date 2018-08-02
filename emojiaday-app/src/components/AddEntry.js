@@ -47,10 +47,9 @@ export default class AddEntry extends Component {
     const emojiId = this.state.emoji;
 
     ReactGA.event({
-      category: 'Entry',
+      category: 'Emoji Entry',
       action: 'Submit',
-      label: 'Emoji',
-      value: emojiId
+      label: emojiId
     });
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;

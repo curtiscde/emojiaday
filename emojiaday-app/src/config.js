@@ -5,6 +5,7 @@ const prod = {
     redirectUri: 'https://emojiaday.netlify.com/callback',
     audience: 'https://emojiaday.com',
   },
+  debug: false,
   googleAnalytics:{
     trackingId: 'UA-123240885-1'
   },
@@ -18,6 +19,7 @@ const dev = {
     redirectUri: 'http://localhost:3000/callback',
     audience: 'https://emojiaday-dev.com',
   },
+  debug: true,
   googleAnalytics:{
     trackingId: 'UA-123240885-2'
   },

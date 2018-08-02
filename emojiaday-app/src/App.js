@@ -24,7 +24,9 @@ class App extends Component {
 
   constructor(){
     super();
-    ReactGA.initialize(config.googleAnalytics.trackingId);
+    ReactGA.initialize(config.googleAnalytics.trackingId, {
+      debug: config.debug
+    });
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
