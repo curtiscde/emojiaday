@@ -9,6 +9,8 @@ import AddEntry from './components/AddEntry';
 import AuthCallback from './components/AuthCallback';
 import Footer from './components/Footer';
 import './App.css';
+import ReactGA from 'react-ga';
+import config from './config';
 
 const auth = new Auth();
 
@@ -17,7 +19,15 @@ const handleAuthentication = ({location}) => {
     auth.handleAuthentication();
   }
 }
+
 class App extends Component {
+
+  constructor(){
+    super();
+    ReactGA.initialize(config.googleAnalytics.trackingId);
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
+
   render() {
     return (
       <div>
