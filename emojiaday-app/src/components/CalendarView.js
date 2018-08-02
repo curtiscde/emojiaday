@@ -28,7 +28,7 @@ export default class CalendarView extends Component {
                 this.setState({
                   ...this.state,
                   entries: res.data,
-                  entriesLoaded: false
+                  entriesLoaded: true
                 });
             })
             .catch(function (error) {
