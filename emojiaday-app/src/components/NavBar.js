@@ -4,11 +4,12 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Login from './Login';
 import Logout from './Logout';
+import NavProfile from './NavProfile';
 
 export default class NavBar extends Component {
   render(){
 
-    const authButton = this.props.isAuthenticated() ? <Logout/> : <Login/>;
+    const authButton = this.props.isAuthenticated() ? <NavProfile/> : <Login/>;
 
     return (
       <div style={{flexGrow:1}}>
