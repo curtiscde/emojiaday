@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import Config from '../config';
 import { Emoji } from 'emoji-mart';
 import './CalendarView.css';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from './Loading';
 import history from '../history';
 import moment from 'moment';
 
@@ -26,22 +26,22 @@ export default class CalendarView extends Component {
   }
 
   getEntries(){
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get(`${Config.serviceUri}/api/entries/user`)
-          .then(res => {
-              this.setState({
-                ...this.state,
-                entries: res.data,
-                entriesLoaded: true
-              });
-          })
-          .catch(function (error) {
-            console.log(error);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.get(`${Config.serviceUri}/api/entries/user`)
+        .then(res => {
             this.setState({
               ...this.state,
+              entries: res.data,
               entriesLoaded: true
             });
+        })
+        .catch(function (error) {
+          console.log(error);
+          this.setState({
+            ...this.state,
+            entriesLoaded: true
           });
+        });
     }
 
     getEntryForDate(entries, date){
@@ -74,9 +74,7 @@ export default class CalendarView extends Component {
             className={['calendar']}
             onClickDay={this.handleDayClick}
           /> :
-          <div class={['loading']}>
-            <CircularProgress size={80} />
-          </div>
+          <Loading/>
 
         return (
             <div>
