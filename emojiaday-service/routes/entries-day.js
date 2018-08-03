@@ -6,16 +6,16 @@ module.exports = (apiRoutes) => {
 
     apiRoutes.get('/entries/day/:day', authHelper.jwtCheck, (req, res) => {
 
-        const date = moment(req.params.date).toDate();
+        const day = moment(req.params.day).toDate();
         
-        entryHelper.getEntriesByDateUser(date, req.user.sub).then(entries => {
+        entryHelper.getEntriesByDateUser(day, req.user.sub).then(entries => {
 
             const userEntries = entries.map(entry => ({
                 date: entry.date,
                 emoji: entry.emoji
             }));
 
-            entryHelper.getEntriesByTopDay(date).then(topEmojis => {
+            entryHelper.getEntriesByTopDay(day).then(topEmojis => {
 
                 
                 res.json({
