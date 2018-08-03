@@ -56,7 +56,7 @@ export default class CalendarView extends Component {
 
     handleDayClick(date){
       const dateFormatted = moment(date).format('YYYYMMDD');
-      history.replace(`/date/${dateFormatted}`);
+      history.replace(`/day/${dateFormatted}`);
     }
 
     render(){
