@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Config from '../config';
+import moment from 'moment';
+import Loading from './Loading';
+import { Emoji } from 'emoji-mart';
 
 export default class DayView extends Component{
 
@@ -10,6 +13,10 @@ export default class DayView extends Component{
       dataLoaded: false,
       userEmojiId: null
     }
+  }
+
+  componentDidMount(){
+    this.getData();
   }
 
   getData(){
@@ -32,8 +39,20 @@ export default class DayView extends Component{
   }
 
   render(){
+
+    const view = this.state.dataLoaded ?
+      <div>
+        <div>{moment(this.props.match.params.day).format('D MMMM YYYY')}</div>
+        {this.state.data.userEntries.length ?
+          <Emoji emoji={this.state.data.userEntries[0].emoji} set='twitter' size={64} />
+          : null}
+      </div>:
+      <Loading/>
+
     return (
-      <div>{this.props.match.params.day}</div>
+      <div>
+        {view}
+      </div>
     )
   }
 }
