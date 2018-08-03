@@ -31,10 +31,18 @@ export default class entryHelper {
 
       const aggregatorOpts = [
         {
-            $group: {
-                _id: "$emoji",
-                count: { $sum: 1 }
+          $match: {
+            date: {
+              $gte: startOfDay.toDate(),
+              $lt: endOfDay.toDate()
             }
+          },
+        },
+        {
+          $group: {
+              _id: "$emoji",
+              count: { $sum: 1 }
+          }
         }
       ];
 
