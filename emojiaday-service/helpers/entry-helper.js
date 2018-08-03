@@ -1,11 +1,19 @@
 import Entry from '../models/entry';
+import moment from 'moment';
 
 export default class entryHelper {
 
-  static getEntryByDateUser(date, userid) {
+  static getEntriesByDateUser(date, userid) {
+    
+    const startOfDay = moment(date).startOf('day');
+    const endOfDay = moment(date).endOf('day');
+    
     return this.getEntries({
       userid: userid,
-      date: date
+      date: {
+        $gte: startOfDay.toDate(),
+        $lt: endOfDay.toDate()
+      }
     });
   };
 
