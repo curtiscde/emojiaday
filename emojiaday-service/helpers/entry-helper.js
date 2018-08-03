@@ -23,6 +23,32 @@ export default class entryHelper {
     });
   }
 
+  static getEntriesByTopDay(date){
+    const startOfDay = moment(date).startOf('day');
+    const endOfDay = moment(date).endOf('day');
+
+    return new Promise((resolve, reject) => {
+
+      const aggregatorOpts = [
+        {
+            $group: {
+                _id: "$emoji",
+                count: { $sum: 1 }
+            }
+        }
+      ];
+
+      Entry.aggregate(aggregatorOpts).exec((err, entries) => {
+        if (err){
+          reject(err);
+        }
+        else {
+          resolve(entries);
+        }
+      });
+    });
+  }
+
   static getEntries(searchObj){
     return new Promise((resolve, reject) => {
       Entry.find(searchObj, (err, entries) => {
