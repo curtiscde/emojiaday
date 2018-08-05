@@ -6,6 +6,7 @@ import history from './history';
 import NavBar from './components/NavBar';
 import CalendarView from './components/CalendarView';
 import AddEntry from './components/AddEntry';
+import DayView from './components/DayView';
 import AuthCallback from './components/AuthCallback';
 import Footer from './components/Footer';
 import './App.css';
@@ -51,6 +52,7 @@ class App extends Component {
                 }}
               />
               <Route exact path="/addentry" component={AddEntry} />
+              <Route exact path="/day/:day" component={DayView} />
             </Grid>
             <Footer isAuthenticated={auth.isAuthenticated} />
           </div>
