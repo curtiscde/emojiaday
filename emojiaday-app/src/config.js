@@ -7,7 +7,7 @@ const prod = {
   },
   debug: false,
   feature:{
-    dayView: false
+    dayView: true
   },
   googleAnalytics:{
     trackingId: 'UA-123240885-1'
