@@ -43,7 +43,9 @@ export default class entryHelper {
               _id: "$emoji",
               count: { $sum: 1 }
           }
-        }
+        },
+        { $sort   : { count : -1 } },
+        { $limit  : 3 }
       ];
 
       Entry.aggregate(aggregatorOpts).exec((err, entries) => {
