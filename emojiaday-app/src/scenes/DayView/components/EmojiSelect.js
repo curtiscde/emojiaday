@@ -7,6 +7,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import { Picker, Emoji } from 'emoji-mart'
 import Button from '@material-ui/core/Button';
+import Config from '../../../config';
+import axios from 'axios';
 
 export default class DayView extends Component{
 
@@ -17,7 +19,7 @@ export default class DayView extends Component{
 
   constructor(props){
     super(props);
-    console.log(props.index);
+
     this.index = props.index;
   
     this.handleIconClick = this.handleIconClick.bind(this);
@@ -39,12 +41,28 @@ export default class DayView extends Component{
     });
   }
 
-  handleEmojiSelect(){
+  handleEmojiSelect(data){
+    
     this.setState({
       ...this.state,
       dialogOpen: false,
       iconRequest: true
     });
+
+    const emojiId = data.id;
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.post(`${Config.serviceUri}/api/entry/day`, {
+      emoji: emojiId,
+      index: this.index
+    }).then(data => {
+      this.setState({
+        ...this.state,
+        emoji: emojiId,
+        iconRequest: false
+      });
+    });
+
   }
 
   render(){
@@ -52,8 +70,8 @@ export default class DayView extends Component{
       <Grid item xs={4} style={{ textAlign: 'center' }}>
         <IconButton onClick={this.handleIconClick}>
           {
-            this.state.iconRequest
-            ? <CircularProgress size={32} />
+            this.state.iconRequest ? <CircularProgress size={32} />
+            : this.state.emoji ? <Emoji emoji={this.state.emoji} set='twitter' size={32} />
             : <AddCircleOutlined style={{ fontSize: 40 }}/>
           }
           
