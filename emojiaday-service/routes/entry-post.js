@@ -6,6 +6,8 @@ import { rejects } from 'assert';
 
 module.exports = (apiRoutes) => {
 
+    const MAX_INDEX = 2;
+
     //Required Params
     // userid (req.user.sub)
     // index
@@ -15,7 +17,7 @@ module.exports = (apiRoutes) => {
 
         const userid = req.user.sub;
         const date = moment().toDate();
-        const index = req.body.index;
+        const index = +req.body.index;
         const emoji = req.body.emoji;
         
 
@@ -27,6 +29,9 @@ module.exports = (apiRoutes) => {
         }
         else if (!index){
             res.status(500).send('Missing index data');
+        }
+        else if (index < 0 || index > MAX_INDEX){
+            res.status(500).send('Invalid index');
         }
         else{
 
