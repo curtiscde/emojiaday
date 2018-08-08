@@ -27,7 +27,6 @@ module.exports = (apiRoutes) => {
         entryHelper.getEntriesByTopDay(day).then(topEmojis => {
             
             res.json({
-                userEntries,
                 topEmojis
             });
         });
