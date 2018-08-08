@@ -14,13 +14,13 @@ export default class DayView extends Component{
 
   state = {
     dialogOpen: false,
+    emoji: null,
+    entryId: null,
     iconRequest: false
   };
 
   constructor(props){
     super(props);
-
-    this.index = props.index;
   
     this.handleIconClick = this.handleIconClick.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
@@ -43,25 +43,49 @@ export default class DayView extends Component{
 
   handleEmojiSelect(data){
     
+    const emojiId = data.id;
+
     this.setState({
       ...this.state,
       dialogOpen: false,
       iconRequest: true
     });
 
-    const emojiId = data.id;
+    if (this.state.entryid){
 
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-    axios.post(`${Config.serviceUri}/api/entry/day`, {
-      emoji: emojiId,
-      index: this.index
-    }).then(data => {
-      this.setState({
-        ...this.state,
+      console.log('eid', this.state.entryid);
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      axios.put(`${Config.serviceUri}/api/entry/day`, {
+        entryid: this.state.entryId,
         emoji: emojiId,
-        iconRequest: false
+      }).then(res => {
+        this.setState({
+          ...this.state,
+          emoji: res.data.emoji,
+          entryid: res.data._id,
+          iconRequest: false
+        });
       });
-    });
+
+    }
+    else{
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      axios.post(`${Config.serviceUri}/api/entry/day`, {
+        emoji: emojiId,
+        index: this.props.index
+      }).then(res => {
+        this.setState({
+          ...this.state,
+          emoji: res.data.emoji,
+          entryid: res.data._id,
+          iconRequest: false
+        });
+      });
+
+    }
+
 
   }
 
