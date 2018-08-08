@@ -12,6 +12,8 @@ import Badge from '@material-ui/core/Badge';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
+import EmojiSelection from './components/EmojiSelection';
+
 
 export default class DayView extends Component{
 
@@ -90,13 +92,7 @@ export default class DayView extends Component{
 
     const view = this.state.dataLoaded ?
       <div>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Typography variant="title" color="inherit">
-              {moment(this.props.match.params.day).format('D MMMM YYYY')}
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <EmojiSelection/>
         {userEmoji}
         {topEmojis}
       </div>:
@@ -104,6 +100,13 @@ export default class DayView extends Component{
 
     return (
       <div className={styles.root}>
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <Typography variant="title" color="inherit">
+              {moment(this.props.match.params.day).format('D MMMM YYYY')}
+            </Typography>
+          </Toolbar>
+        </AppBar>
         {view}
       </div>
     )
