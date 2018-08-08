@@ -17,6 +17,20 @@ export default class entryHelper {
     });
   };
 
+  static getEntryByDateUserIndex(date, userid, index) {
+    const startOfDay = moment(date).startOf('day');
+    const endOfDay = moment(date).endOf('day');
+
+    return this.getEntries({
+      userid: userid,
+      date: {
+        $gte: startOfDay.toDate(),
+        $lt: endOfDay.toDate()
+      },
+      index: index
+    });
+  }
+
   static getEntriesByUser(userid){
     return this.getEntries({
       userid: userid

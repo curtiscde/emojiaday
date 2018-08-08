@@ -33,6 +33,7 @@ app.use(function(req, res, next) {
 require('./routes/entries-day.js')(apiRoutes);
 require('./routes/entries-user.js')(apiRoutes);
 require('./routes/entry-post.js')(apiRoutes);
+require('./routes/entry-put.js')(apiRoutes);
 
 app.use('/api', apiRoutes);
 

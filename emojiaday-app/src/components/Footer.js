@@ -5,6 +5,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddIcon from '@material-ui/icons/Add';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import history from '../history';
+import moment from 'moment';
 
 export default class Footer extends Component {
     
@@ -15,7 +16,7 @@ export default class Footer extends Component {
                 break;
             }
             case 'addentry':{
-                history.replace('/addentry');
+                history.replace(`/day/${moment().format('YYYYMMDD')}`);
                 break;
             }
             default:{

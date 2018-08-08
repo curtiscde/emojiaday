@@ -4,26 +4,30 @@ import moment from 'moment';
 
 module.exports = (apiRoutes) => {
 
+    apiRoutes.get('/entry/user/:day/:index', authHelper.jwtCheck, (req, res) => {
+
+        const day = moment(req.params.day).toDate();
+        const index = req.params.index;
+
+        entryHelper.getEntryByDateUserIndex(day, req.user.sub, index).then(data => {
+
+            res.json({
+                entry: data.length ? data[0] : null
+            });
+
+        }).catch(err => res.status(500));
+
+    });
+
     apiRoutes.get('/entries/day/:day', authHelper.jwtCheck, (req, res) => {
 
         const day = moment(req.params.day).toDate();
-        
-        entryHelper.getEntriesByDateUser(day, req.user.sub).then(entries => {
-
-            const userEntries = entries.map(entry => ({
-                date: entry.date,
-                emoji: entry.emoji
-            }));
-
-            entryHelper.getEntriesByTopDay(day).then(topEmojis => {
-                
-                res.json({
-                    userEntries,
-                    topEmojis
-                });
-            });
-
+    
+        entryHelper.getEntriesByTopDay(day).then(topEmojis => {
             
+            res.json({
+                topEmojis
+            });
         });
         
     });

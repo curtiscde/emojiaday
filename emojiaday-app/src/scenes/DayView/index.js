@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Config from '../config';
+import Config from '../../config';
 import moment from 'moment';
-import Loading from './Loading';
+import Loading from '../../components/Loading';
 import Typography from '@material-ui/core/Typography';
 import { Emoji } from 'emoji-mart';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,6 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
+import EmojiSelection from './components/EmojiSelection';
 
 
 export default class DayView extends Component{
@@ -63,14 +65,6 @@ export default class DayView extends Component{
       },
     };
 
-    const userEmoji = this.state.data && this.state.data.userEntries.length ?
-      <Grid item xs={12}>
-        <Paper className={styles.paper}>
-          <Emoji emoji={this.state.data.userEntries[0].emoji} set='twitter' size={64} />
-        </Paper>
-      </Grid>
-      : null;
-
     const topEmojis = this.state.data && this.state.data.topEmojis.length ?
       <Grid item xs={12}>
         <Paper className={styles.paper}>
@@ -90,6 +84,13 @@ export default class DayView extends Component{
 
     const view = this.state.dataLoaded ?
       <div>
+        <EmojiSelection day={this.props.match.params.day}/>
+        {topEmojis}
+      </div>:
+      <Loading/>
+
+    return (
+      <div className={styles.root}>
         <AppBar position="static" color="default">
           <Toolbar>
             <Typography variant="title" color="inherit">
@@ -97,13 +98,6 @@ export default class DayView extends Component{
             </Typography>
           </Toolbar>
         </AppBar>
-        {userEmoji}
-        {topEmojis}
-      </div>:
-      <Loading/>
-
-    return (
-      <div className={styles.root}>
         {view}
       </div>
     )
