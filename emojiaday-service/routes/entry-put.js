@@ -16,6 +16,7 @@ module.exports = (apiRoutes) => {
         const userid = req.user.sub;
         const entryid = req.body.entryid;
         const emoji = req.body.emoji;
+        const date = moment().toDate();
         
         if (!emoji){
             res.status(500).send('Missing emoji data');
