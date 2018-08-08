@@ -16,7 +16,7 @@ module.exports = (apiRoutes) => {
             else{
                 res.json(data[0]);
             }
-        });
+        }).catch(err => res.status(500));
 
     });
 
