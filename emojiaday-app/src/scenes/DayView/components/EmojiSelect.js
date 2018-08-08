@@ -9,6 +9,7 @@ import { Picker, Emoji } from 'emoji-mart'
 import Button from '@material-ui/core/Button';
 import Config from '../../../config';
 import axios from 'axios';
+import moment from 'moment';
 
 export default class DayView extends Component{
 
@@ -21,6 +22,8 @@ export default class DayView extends Component{
 
   constructor(props){
     super(props);
+
+    this.isToday = (this.props.day === moment().format('YYYYMMDD'));
   
     this.handleIconClick = this.handleIconClick.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
@@ -55,10 +58,13 @@ export default class DayView extends Component{
   }
 
   handleIconClick(){
-    this.setState({
-      ...this.state,
-      dialogOpen: true,
-    });
+
+    if (this.isToday){
+      this.setState({
+        ...this.state,
+        dialogOpen: true,
+      });
+    }
   }
 
   handleCloseDialog(){
@@ -120,9 +126,9 @@ export default class DayView extends Component{
           {
             this.state.iconRequest ? <CircularProgress size={32} />
             : this.state.emoji ? <Emoji emoji={this.state.emoji} set='twitter' size={32} />
-            : <AddCircleOutlined style={{ fontSize: 40 }}/>
+            : this.isToday ? <AddCircleOutlined style={{ fontSize: 40 }}/>
+            : null
           }
-          
         </IconButton>
         <Dialog
           open={this.state.dialogOpen}
