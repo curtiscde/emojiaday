@@ -65,14 +65,6 @@ export default class DayView extends Component{
       },
     };
 
-    const userEmoji = this.state.data && this.state.data.userEntries.length ?
-      <Grid item xs={12}>
-        <Paper className={styles.paper}>
-          <Emoji emoji={this.state.data.userEntries[0].emoji} set='twitter' size={64} />
-        </Paper>
-      </Grid>
-      : null;
-
     const topEmojis = this.state.data && this.state.data.topEmojis.length ?
       <Grid item xs={12}>
         <Paper className={styles.paper}>
@@ -93,7 +85,6 @@ export default class DayView extends Component{
     const view = this.state.dataLoaded ?
       <div>
         <EmojiSelection day={this.props.day}/>
-        {userEmoji}
         {topEmojis}
       </div>:
       <Loading/>
