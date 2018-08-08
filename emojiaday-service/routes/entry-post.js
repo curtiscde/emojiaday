@@ -27,9 +27,6 @@ module.exports = (apiRoutes) => {
         else if (!date){
             res.status(500).send('Missing date data');
         }
-        else if (!index){
-            res.status(500).send('Missing index data');
-        }
         else if (index < 0 || index > MAX_INDEX){
             res.status(500).send('Invalid index');
         }
