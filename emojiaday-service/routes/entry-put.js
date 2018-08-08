@@ -6,26 +6,22 @@ import { rejects } from 'assert';
 
 module.exports = (apiRoutes) => {
 
-    const MAX_INDEX = 2;
-
     //Required Params
     // userid (req.user.sub)
-    // index
+    // entryid
     // emoji
-    apiRoutes.post('/entry/day', authHelper.jwtCheck, (req, res) => {
+    apiRoutes.put('/entry/day', authHelper.jwtCheck, (req, res) => {
         console.log('📩 POST entry day');
 
         const userid = req.user.sub;
-        const date = moment().toDate();
-        const index = +req.body.index;
+        const entryid = req.body.entryid;
         const emoji = req.body.emoji;
         
-
         if (!emoji){
             res.status(500).send('Missing emoji data');
         }
-        else if (index < 0 || index > MAX_INDEX){
-            res.status(500).send('Invalid index');
+        else if (!entryid){
+            res.status(500).send('Missing entryid');
         }
         else{
 
@@ -43,7 +39,6 @@ module.exports = (apiRoutes) => {
                     },
                     {
                         $or: [
-                            { index: index },
                             { emoji: emoji }
                         ]
                     }
@@ -54,17 +49,18 @@ module.exports = (apiRoutes) => {
                     res.status(500).send('Error');
                 }
                 else if(entry.length){
-                    res.status(500).send('Index or Emoji already exists');
+                    res.status(500).send('Emoji already exists');
                 }
                 else{
-                    Entry.create({
-                        userid: userid,
-                        date: date,
-                        index: index,
-                        emoji: emoji,
-                    }, (e, newEntry) => {    
-                        res.json(newEntry);
-                    });
+
+                  Entry.findById(entryid, (err, updateEntry) => {
+
+                    updateEntry.emoji = emoji;
+                    updateEntry.save();
+
+                    res.json(updateEntry);
+
+                  });
 
                 }
 
@@ -75,5 +71,5 @@ module.exports = (apiRoutes) => {
         
     });
 
-    console.log('😄 entry post routes loaded');
+    console.log('😄 entry put routes loaded');
 };
