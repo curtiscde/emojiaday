@@ -11,7 +11,7 @@ import { Picker, Emoji } from 'emoji-mart'
 export default class DayView extends Component{
 
   state = {
-    pickerOpen: false,
+    dialogOpen: false,
   };
 
   constructor(props){
@@ -20,11 +20,18 @@ export default class DayView extends Component{
     this.index = props.index;
   
     this.handleIconClick = this.handleIconClick.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
 
   handleIconClick(){
     this.setState({
-      open: true,
+      dialogOpen: true,
+    });
+  }
+
+  handleCloseDialog(){
+    this.setState({
+      dialogOpen: false,
     });
   }
 
@@ -34,7 +41,11 @@ export default class DayView extends Component{
         <IconButton onClick={this.handleIconClick}>
           <AddCircleOutlined style={{ fontSize: 40 }}/>
         </IconButton>
-        <Dialog open={this.state.open}><Picker/></Dialog>
+        <Dialog
+          open={this.state.dialogOpen}
+          onClose={this.handleCloseDialog}>
+          <Picker/>
+        </Dialog>
       </Grid>
     )
   }
