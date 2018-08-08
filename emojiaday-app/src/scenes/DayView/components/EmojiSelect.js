@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlined from '@material-ui/icons/AddCircleOutlined';
-
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
-
 import { Picker, Emoji } from 'emoji-mart'
+import Button from '@material-ui/core/Button';
 
 export default class DayView extends Component{
 
@@ -21,6 +20,7 @@ export default class DayView extends Component{
   
     this.handleIconClick = this.handleIconClick.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleEmojiSelect = this.handleEmojiSelect.bind(this);
   }
 
   handleIconClick(){
@@ -35,6 +35,13 @@ export default class DayView extends Component{
     });
   }
 
+  handleEmojiSelect(){
+
+    this.setState({
+      dialogOpen: false,
+    });
+  }
+
   render(){
     return (
       <Grid item xs={4} style={{ textAlign: 'center' }}>
@@ -44,7 +51,17 @@ export default class DayView extends Component{
         <Dialog
           open={this.state.dialogOpen}
           onClose={this.handleCloseDialog}>
-          <Picker/>
+          <Picker
+            emoji='grinning'
+            set='twitter'
+            title='Pick your emoji…'
+            onSelect={this.handleEmojiSelect}
+          />
+          <DialogActions>
+            <Button onClick={this.handleCloseDialog} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
         </Dialog>
       </Grid>
     )
