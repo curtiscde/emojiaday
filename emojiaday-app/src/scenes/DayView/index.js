@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Config from '../config';
+import Config from '../../config';
 import moment from 'moment';
-import Loading from './Loading';
+import Loading from '../../components/Loading';
 import Typography from '@material-ui/core/Typography';
 import { Emoji } from 'emoji-mart';
 import AppBar from '@material-ui/core/AppBar';
