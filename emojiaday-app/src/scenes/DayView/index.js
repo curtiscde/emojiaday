@@ -92,7 +92,7 @@ export default class DayView extends Component{
 
     const view = this.state.dataLoaded ?
       <div>
-        <EmojiSelection/>
+        <EmojiSelection day={this.props.day}/>
         {userEmoji}
         {topEmojis}
       </div>:

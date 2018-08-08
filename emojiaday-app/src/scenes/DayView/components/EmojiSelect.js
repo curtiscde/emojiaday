@@ -27,6 +27,17 @@ export default class DayView extends Component{
     this.handleEmojiSelect = this.handleEmojiSelect.bind(this);
   }
 
+  componentDidMount(){
+    this.getEntry();
+  }
+
+  getEntry(){
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.get(`${Config.serviceUri}/api/entry/user/${this.props.day}/${this.props.index}`).then(res => {
+      console.log('sdsd', res);
+    });
+  }
+
   handleIconClick(){
     this.setState({
       ...this.state,
@@ -51,7 +62,7 @@ export default class DayView extends Component{
       iconRequest: true
     });
 
-    if (this.state.entryid){
+    if (this.state.entryId){
 
       console.log('eid', this.state.entryid);
 
@@ -63,7 +74,6 @@ export default class DayView extends Component{
         this.setState({
           ...this.state,
           emoji: res.data.emoji,
-          entryid: res.data._id,
           iconRequest: false
         });
       });
@@ -79,7 +89,7 @@ export default class DayView extends Component{
         this.setState({
           ...this.state,
           emoji: res.data.emoji,
-          entryid: res.data._id,
+          entryId: res.data._id,
           iconRequest: false
         });
       });

@@ -8,9 +8,9 @@ export default class DayView extends Component{
     return (
       <Paper>
         <Grid container spacing={24}>
-          <EmojiSelect index={0} />
-          <EmojiSelect index={1} />
-          <EmojiSelect index={2} />
+          <EmojiSelect day={this.props.day} index={0} />
+          <EmojiSelect day={this.props.day} index={1} />
+          <EmojiSelect day={this.props.day} index={2} />
         </Grid>
       </Paper>
     )
