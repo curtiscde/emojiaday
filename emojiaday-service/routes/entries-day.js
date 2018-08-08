@@ -10,12 +10,11 @@ module.exports = (apiRoutes) => {
         const index = req.params.index;
 
         entryHelper.getEntryByDateUserIndex(day, req.user.sub, index).then(data => {
-            if(!data.length){
-                res.status(400);
-            }
-            else{
-                res.json(data[0]);
-            }
+
+            res.json({
+                entry: data.length ? data[0] : null
+            });
+
         }).catch(err => res.status(500));
 
     });

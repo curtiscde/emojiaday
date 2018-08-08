@@ -11,7 +11,7 @@ module.exports = (apiRoutes) => {
     // entryid
     // emoji
     apiRoutes.put('/entry/day', authHelper.jwtCheck, (req, res) => {
-        console.log('📩 POST entry day');
+        console.log('📩 PUT entry day');
 
         const userid = req.user.sub;
         const entryid = req.body.entryid;
