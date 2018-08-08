@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
-import CalendarView from './components/CalendarView';
+import CalendarView from './scenes/CalendarView';
 import AddEntry from './scenes/AddEntry';
 import DayView from './scenes/DayView/index';
 import AuthCallback from './components/AuthCallback';

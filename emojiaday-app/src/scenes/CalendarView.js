@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import Config from '../config';
 import { Emoji } from 'emoji-mart';
 import './CalendarView.css';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import history from '../history';
 import moment from 'moment';
 
