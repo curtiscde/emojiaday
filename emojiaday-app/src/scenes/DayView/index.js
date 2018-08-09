@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import EmojiSelection from './components/EmojiSelection';
+import TopEmojis from './components/TopEmojis';
 
 
 export default class DayView extends Component{
@@ -55,31 +56,11 @@ export default class DayView extends Component{
       root: {
         flexGrow: 1,
       },
-      paper: {
-        padding: 2,
-        textAlign: 'center',
-      },
-      badge: {
-        top: 1,
-        right: -15,
-        border: `2px solid #ccc`,
-      },
     };
 
     const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
       <Grid item xs={12}>
-        <Paper className={styles.paper}>
-          <Typography variant="subheading" color="inherit">
-            Top emojis for {moment(this.props.match.params.day).format('D MMMM YYYY')}
-          </Typography>
-          {this.state.dayData.topEmojis.map(topEmoji => (
-            <IconButton key={topEmoji._id}>
-              <Badge badgeContent={topEmoji.count} color="primary" classes={{ badge: styles.badge }}>
-                <Emoji emoji={topEmoji._id} set='twitter' size={32} />
-              </Badge>
-            </IconButton>
-          ))}
-        </Paper>
+        <TopEmojis day={this.props.match.params.day} data={this.state.dayData.topEmojis}/>
       </Grid>
     : null;
 
