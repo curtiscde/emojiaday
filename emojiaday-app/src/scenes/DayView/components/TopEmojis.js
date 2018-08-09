@@ -19,6 +19,13 @@ export default class TopEmojis extends Component{
             },
           };
 
+        const getBackgroundColor = index => {
+            return index === 0  ? 'rgba(255, 215, 0, 0.3)'
+                : index === 1 ? 'rgba(211, 211, 211, 0.3)'
+                : index === 2 ? 'rgba(205, 127, 50, 0.3)'
+                : '';
+        }
+
         return (
             <Card>
                 <CardContent>
@@ -28,12 +35,17 @@ export default class TopEmojis extends Component{
                                 Top emojis for {moment(this.props.day).format('D MMMM YYYY')}
                             </Typography>
                         </Grid>
-                        {this.props.data.map(topEmoji => (
+                        {this.props.data.map((topEmoji, index) => (
                             <Grid xs={4} style={{ textAlign: 'center', paddingTop:12 }}>
-                                <IconButton key={topEmoji._id}>
-                                    <Badge badgeContent={topEmoji.count} color="primary" classes={{ badge: styles.badge }}>
+                                <IconButton key={topEmoji._id} style={{ backgroundColor: getBackgroundColor(index) }}>
+                                    {
+                                        topEmoji.count > 10 ?
+                                        <Badge badgeContent={topEmoji.count} color="primary" classes={{ badge: styles.badge }}>
+                                            <Emoji emoji={topEmoji._id} set='twitter' size={32} />
+                                        </Badge>
+                                        :
                                         <Emoji emoji={topEmoji._id} set='twitter' size={32} />
-                                    </Badge>
+                                    }
                                 </IconButton>
                             </Grid>
                         ))}
