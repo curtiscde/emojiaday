@@ -20,7 +20,8 @@ export default class DayView extends Component{
   constructor(){
     super();
     this.state = {
-      dataLoaded: false,
+      dayData: null,
+      dayDataLoaded: false,
       userEmojiId: null
     }
   }
@@ -35,15 +36,15 @@ export default class DayView extends Component{
           .then(res => {
               this.setState({
                 ...this.state,
-                data: res.data,
-                dataLoaded: true,
+                dayData: res.data,
+                dayDataLoaded: true,
               });
           })
           .catch(function (error) {
             console.log(error);
             this.setState({
               ...this.state,
-              dataLoaded: true
+              dayDataLoaded: true
             });
           });
   }
@@ -65,13 +66,13 @@ export default class DayView extends Component{
       },
     };
 
-    const topEmojis = this.state.data && this.state.data.topEmojis.length ?
+    const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
       <Grid item xs={12}>
         <Paper className={styles.paper}>
           <Typography variant="subheading" color="inherit">
-            Top emojis worldwide
+            Top emojis for {moment(this.props.match.params.day).format('D MMMM YYYY')}
           </Typography>
-          {this.state.data.topEmojis.map(topEmoji => (
+          {this.state.dayData.topEmojis.map(topEmoji => (
             <IconButton key={topEmoji._id}>
               <Badge badgeContent={topEmoji.count} color="primary" classes={{ badge: styles.badge }}>
                 <Emoji emoji={topEmoji._id} set='twitter' size={32} />
@@ -82,7 +83,7 @@ export default class DayView extends Component{
       </Grid>
     : null;
 
-    const view = this.state.dataLoaded ?
+    const view = this.state.dayDataLoaded ?
       <div>
         <EmojiSelection day={this.props.match.params.day}/>
         {topEmojis}
