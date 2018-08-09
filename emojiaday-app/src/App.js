@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
-import CalendarView from './scenes/CalendarView';
+import CalendarView from './scenes/CalendarView/index';
 import AddEntry from './scenes/AddEntry';
 import DayView from './scenes/DayView/index';
 import AuthCallback from './components/AuthCallback';
@@ -43,7 +43,7 @@ class App extends Component {
                   return <CalendarView/>;
                 }
                 else{
-                  return <p>Logged Out</p>;
+                  return <div></div>;
                 }
               }} />
               <Route exact path="/callback" render={(props) => {

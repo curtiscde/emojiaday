@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
-import Config from '../config';
+import Config from '../../config';
 import { Emoji } from 'emoji-mart';
-import './CalendarView.css';
-import Loading from '../components/Loading';
-import history from '../history';
+import './styles.css';
+import Loading from '../../components/Loading';
+import history from '../../history';
 import moment from 'moment';
+import EmojiSelection from '../../components/EmojiSelection';
 
 export default class CalendarView extends Component {
 
@@ -19,6 +20,7 @@ export default class CalendarView extends Component {
     };
 
     this.handleDayClick = this.handleDayClick.bind(this);
+    this.handleEmojiSelectionUpdate = this.handleEmojiSelectionUpdate.bind(this);
   }
 
   componentDidMount(){
@@ -26,6 +28,7 @@ export default class CalendarView extends Component {
   }
 
   getEntries(){
+    console.log('getE');
     let self = this;
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get(`${Config.serviceUri}/api/entries/user`)
@@ -62,6 +65,10 @@ export default class CalendarView extends Component {
       }
     }
 
+    handleEmojiSelectionUpdate(){
+      this.getEntries();
+    }
+
     render(){
 
         const addTileContent = ({date, view}) => {
@@ -69,17 +76,23 @@ export default class CalendarView extends Component {
           return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='twitter' size={16} /> : null
         };
 
-        const view = this.state.entriesLoaded ?
-          <Calendar
-            tileContent={addTileContent}
-            className={['calendar']}
-            onClickDay={this.handleDayClick}
-          /> :
-          <Loading/>
-
         return (
             <div>
-              {view}
+              {
+                this.state.entriesLoaded ?
+                <div>
+                  <Calendar
+                    tileContent={addTileContent}
+                    className={['calendar']}
+                    onClickDay={this.handleDayClick}
+                  />
+                  <EmojiSelection
+                    day={moment().format('YYYYMMDD')}
+                    onUpdate={this.handleEmojiSelectionUpdate}
+                  />
+                </div> :
+                <Loading/>
+              }
             </div>
         )
     }
