@@ -43,7 +43,7 @@ class App extends Component {
                   return <CalendarView/>;
                 }
                 else{
-                  return <p>Logged Out</p>;
+                  return <div></div>;
                 }
               }} />
               <Route exact path="/callback" render={(props) => {
