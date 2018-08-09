@@ -4,15 +4,12 @@ import Config from '../../config';
 import moment from 'moment';
 import Loading from '../../components/Loading';
 import Typography from '@material-ui/core/Typography';
-import { Emoji } from 'emoji-mart';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import EmojiSelection from './components/EmojiSelection';
+import TopEmojis from './components/TopEmojis';
 
 
 export default class DayView extends Component{
@@ -20,7 +17,8 @@ export default class DayView extends Component{
   constructor(){
     super();
     this.state = {
-      dataLoaded: false,
+      dayData: null,
+      dayDataLoaded: false,
       userEmojiId: null
     }
   }
@@ -35,15 +33,15 @@ export default class DayView extends Component{
           .then(res => {
               this.setState({
                 ...this.state,
-                data: res.data,
-                dataLoaded: true,
+                dayData: res.data,
+                dayDataLoaded: true,
               });
           })
           .catch(function (error) {
             console.log(error);
             this.setState({
               ...this.state,
-              dataLoaded: true
+              dayDataLoaded: true
             });
           });
   }
@@ -54,35 +52,15 @@ export default class DayView extends Component{
       root: {
         flexGrow: 1,
       },
-      paper: {
-        padding: 2,
-        textAlign: 'center',
-      },
-      badge: {
-        top: 1,
-        right: -15,
-        border: `2px solid #ccc`,
-      },
     };
 
-    const topEmojis = this.state.data && this.state.data.topEmojis.length ?
+    const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
       <Grid item xs={12}>
-        <Paper className={styles.paper}>
-          <Typography variant="subheading" color="inherit">
-            Top emojis worldwide
-          </Typography>
-          {this.state.data.topEmojis.map(topEmoji => (
-            <IconButton key={topEmoji._id}>
-              <Badge badgeContent={topEmoji.count} color="primary" classes={{ badge: styles.badge }}>
-                <Emoji emoji={topEmoji._id} set='twitter' size={32} />
-              </Badge>
-            </IconButton>
-          ))}
-        </Paper>
+        <TopEmojis day={this.props.match.params.day} data={this.state.dayData.topEmojis}/>
       </Grid>
     : null;
 
-    const view = this.state.dataLoaded ?
+    const view = this.state.dayDataLoaded ?
       <div>
         <EmojiSelection day={this.props.match.params.day}/>
         {topEmojis}

@@ -5,7 +5,7 @@ import './Loading.css';
 export default class Loading extends Component{
   render(){
     return (
-      <div class={['loading']}>
+      <div className={['loading']}>
         <CircularProgress size={80} />
       </div>
     );

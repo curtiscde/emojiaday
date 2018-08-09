@@ -6,9 +6,6 @@ const prod = {
     audience: 'https://emojiaday.com',
   },
   debug: false,
-  feature:{
-    dayView: true
-  },
   googleAnalytics:{
     trackingId: 'UA-123240885-1'
   },
@@ -23,9 +20,6 @@ const dev = {
     audience: 'https://emojiaday-dev.com',
   },
   debug: true,
-  feature:{
-    dayView: true
-  },
   googleAnalytics:{
     trackingId: 'UA-123240885-2'
   },

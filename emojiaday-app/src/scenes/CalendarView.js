@@ -26,19 +26,20 @@ export default class CalendarView extends Component {
   }
 
   getEntries(){
+    let self = this;
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get(`${Config.serviceUri}/api/entries/user`)
         .then(res => {
-            this.setState({
-              ...this.state,
+          self.setState({
+              ...self.state,
               entries: res.data,
               entriesLoaded: true
             });
         })
-        .catch(function (error) {
+        .catch(error => {
           console.log(error);
-          this.setState({
-            ...this.state,
+          self.setState({
+            ...self.state,
             entriesLoaded: true
           });
         });
@@ -56,7 +57,7 @@ export default class CalendarView extends Component {
 
     handleDayClick(date){
       const dateFormatted = moment(date).format('YYYYMMDD');
-      if (Config.feature.dayView){
+      if (moment(date) <= moment()){
         history.replace(`/day/${dateFormatted}`);
       }
     }
