@@ -103,7 +103,14 @@ export default class DayView extends Component{
           label: emojiId
         });
       }).catch(error => {
-       
+        this.setState({
+          ...this.state,
+          iconRequest: false
+        });
+        ReactGA.event({
+          category: 'Error',
+          action: 'Emoji Entry Update'
+        });
       });
 
     }
@@ -127,7 +134,14 @@ export default class DayView extends Component{
           label: emojiId
         });
       }).catch(error => {
-       
+        this.setState({
+          ...this.state,
+          iconRequest: false
+        });
+        ReactGA.event({
+          category: 'Error',
+          action: 'Emoji Entry Add'
+        });
       });
 
     }
