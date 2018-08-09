@@ -59,7 +59,6 @@ export default class DayView extends Component{
   }
 
   handleIconClick(){
-
     if (this.isToday){
       this.setState({
         ...this.state,
@@ -102,6 +101,7 @@ export default class DayView extends Component{
           action: 'Update',
           label: emojiId
         });
+        this.props.onSubmitComplete();
       }).catch(error => {
         this.setState({
           ...this.state,
@@ -127,12 +127,12 @@ export default class DayView extends Component{
           entryId: res.data._id,
           iconRequest: false
         });
-
         ReactGA.event({
           category: 'Emoji Entry',
           action: 'Add',
           label: emojiId
         });
+        this.props.onSubmitComplete();
       }).catch(error => {
         this.setState({
           ...this.state,

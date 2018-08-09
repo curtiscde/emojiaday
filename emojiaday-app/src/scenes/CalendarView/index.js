@@ -20,6 +20,7 @@ export default class CalendarView extends Component {
     };
 
     this.handleDayClick = this.handleDayClick.bind(this);
+    this.handleEmojiSelectionUpdate = this.handleEmojiSelectionUpdate.bind(this);
   }
 
   componentDidMount(){
@@ -27,6 +28,7 @@ export default class CalendarView extends Component {
   }
 
   getEntries(){
+    console.log('getE');
     let self = this;
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get(`${Config.serviceUri}/api/entries/user`)
@@ -63,6 +65,10 @@ export default class CalendarView extends Component {
       }
     }
 
+    handleEmojiSelectionUpdate(){
+      this.getEntries();
+    }
+
     render(){
 
         const addTileContent = ({date, view}) => {
@@ -80,7 +86,10 @@ export default class CalendarView extends Component {
                     className={['calendar']}
                     onClickDay={this.handleDayClick}
                   />
-                  <EmojiSelection day={moment().format('YYYYMMDD')}/>
+                  <EmojiSelection
+                    day={moment().format('YYYYMMDD')}
+                    onUpdate={this.handleEmojiSelectionUpdate}
+                  />
                 </div> :
                 <Loading/>
               }

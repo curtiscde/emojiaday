@@ -7,6 +7,21 @@ import EmojiSelect from './EmojiSelect';
 import moment from 'moment';
 
 export default class DayView extends Component{
+
+  constructor(props){
+    super();
+
+    this.handleEmojiSelectSubmitComplete = this.handleEmojiSelectSubmitComplete.bind(this);
+  }
+
+  isToday(){
+    return (this.props.day === moment().format('YYYYMMDD'));
+  }
+
+  handleEmojiSelectSubmitComplete(){
+    this.props.onUpdate();
+  }
+
   render(){
     return (
       <Card>
@@ -14,12 +29,16 @@ export default class DayView extends Component{
           <Grid container spacing={24}>
             <Grid xs={12}>
                 <Typography variant="subheading" color="inherit">
-                    Your emojis for {moment(this.props.day).format('D MMMM YYYY')}
+                    {
+                      this.isToday() ?
+                        'Your emojis Today'
+                        : `Your emojis for ${moment(this.props.day).format('D MMMM YYYY')}` 
+                    }
                 </Typography>
             </Grid>
-            <EmojiSelect day={this.props.day} index={0} />
-            <EmojiSelect day={this.props.day} index={1} />
-            <EmojiSelect day={this.props.day} index={2} />
+            <EmojiSelect day={this.props.day} onSubmitComplete={this.handleEmojiSelectSubmitComplete} index={0} />
+            <EmojiSelect day={this.props.day} onSubmitComplete={this.handleEmojiSelectSubmitComplete} index={1} />
+            <EmojiSelect day={this.props.day} onSubmitComplete={this.handleEmojiSelectSubmitComplete} index={2} />
           </Grid>
         </CardContent>
       </Card>
