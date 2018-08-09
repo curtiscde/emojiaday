@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Config from '../../../config';
 import axios from 'axios';
 import moment from 'moment';
+import ReactGA from 'react-ga';
 
 export default class DayView extends Component{
 
@@ -96,6 +97,20 @@ export default class DayView extends Component{
           emoji: res.data.emoji,
           iconRequest: false
         });
+        ReactGA.event({
+          category: 'Emoji Entry',
+          action: 'Update',
+          label: emojiId
+        });
+      }).catch(error => {
+        this.setState({
+          ...this.state,
+          iconRequest: false
+        });
+        ReactGA.event({
+          category: 'Error',
+          action: 'Emoji Entry Update'
+        });
       });
 
     }
@@ -111,6 +126,21 @@ export default class DayView extends Component{
           emoji: res.data.emoji,
           entryId: res.data._id,
           iconRequest: false
+        });
+
+        ReactGA.event({
+          category: 'Emoji Entry',
+          action: 'Add',
+          label: emojiId
+        });
+      }).catch(error => {
+        this.setState({
+          ...this.state,
+          iconRequest: false
+        });
+        ReactGA.event({
+          category: 'Error',
+          action: 'Emoji Entry Add'
         });
       });
 
