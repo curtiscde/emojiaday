@@ -4,12 +4,8 @@ import Config from '../../config';
 import moment from 'moment';
 import Loading from '../../components/Loading';
 import Typography from '@material-ui/core/Typography';
-import { Emoji } from 'emoji-mart';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import EmojiSelection from './components/EmojiSelection';
