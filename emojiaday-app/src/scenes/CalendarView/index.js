@@ -7,6 +7,7 @@ import './styles.css';
 import Loading from '../../components/Loading';
 import history from '../../history';
 import moment from 'moment';
+import EmojiSelection from '../../components/EmojiSelection';
 
 export default class CalendarView extends Component {
 
@@ -69,17 +70,20 @@ export default class CalendarView extends Component {
           return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='twitter' size={16} /> : null
         };
 
-        const view = this.state.entriesLoaded ?
-          <Calendar
-            tileContent={addTileContent}
-            className={['calendar']}
-            onClickDay={this.handleDayClick}
-          /> :
-          <Loading/>
-
         return (
             <div>
-              {view}
+              {
+                this.state.entriesLoaded ?
+                <div>
+                  <Calendar
+                    tileContent={addTileContent}
+                    className={['calendar']}
+                    onClickDay={this.handleDayClick}
+                  />
+                  <EmojiSelection day={moment().format('YYYYMMDD')}/>
+                </div> :
+                <Loading/>
+              }
             </div>
         )
     }
