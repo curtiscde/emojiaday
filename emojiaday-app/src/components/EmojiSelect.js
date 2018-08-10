@@ -11,6 +11,7 @@ import Config from '../config';
 import axios from 'axios';
 import moment from 'moment';
 import ReactGA from 'react-ga';
+import EmojiPicker from './EmojiPicker';
 
 export default class DayView extends Component{
 
@@ -74,9 +75,7 @@ export default class DayView extends Component{
     });
   }
 
-  handleEmojiSelect(data){
-    
-    const emojiId = data.id;
+  handleEmojiSelect(emojiId){
 
     this.setState({
       ...this.state,
@@ -163,12 +162,7 @@ export default class DayView extends Component{
         <Dialog
           open={this.state.dialogOpen}
           onClose={this.handleCloseDialog}>
-          <Picker
-            emoji='grinning'
-            set='twitter'
-            title='Pick your emoji…'
-            onSelect={this.handleEmojiSelect}
-          />
+          <EmojiPicker onSelect={this.handleEmojiSelect} />
           <DialogActions>
             <Button onClick={this.handleCloseDialog} color="primary">
               Cancel
