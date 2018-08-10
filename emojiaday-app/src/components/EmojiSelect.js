@@ -5,13 +5,13 @@ import AddCircleOutlined from '@material-ui/icons/AddCircleOutlined';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
-import { Picker, Emoji } from 'emoji-mart'
+import { Emoji } from 'emoji-mart'
 import Button from '@material-ui/core/Button';
 import Config from '../config';
 import axios from 'axios';
 import moment from 'moment';
 import ReactGA from 'react-ga';
-import EmojiPicker from './EmojiPicker';
+import EmojiPicker from './EmojiPicker/index';
 
 export default class DayView extends Component{
 
