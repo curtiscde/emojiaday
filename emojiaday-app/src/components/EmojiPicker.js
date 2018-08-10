@@ -21,6 +21,7 @@ export default class EmojiPicker extends Component{
         set='twitter'
         title='Pick your emoji…'
         onSelect={this.handleSelect}
+        showPreview={false}
       />
     )
   }
