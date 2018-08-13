@@ -19,7 +19,7 @@ export default function reducer(state={
                 error: action.payload
             }
         }
-        case 'FETCH_USER_ENTRIES_FULFULLED': {
+        case 'FETCH_USER_ENTRIES_FULFILLED': {
             return {
                 ...state,
                 fetching: false,

@@ -3,6 +3,7 @@ import Config from '../config';
 
 export function fetchUserEntries(){
     return function(dispatch){
+        console.log('fetchUserEntries action');
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
         axios.get(`${Config.serviceUri}/api/entries/user`)
         .then(res => {
