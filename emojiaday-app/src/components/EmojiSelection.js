@@ -3,16 +3,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import EmojiSelect from './EmojiSelect';
 import moment from 'moment';
+import EmojiSelect from './EmojiSelect';
 
-export default class DayView extends Component{
-
-  constructor(props){
-    super();
-  }
-
-  isToday(){
+export default class DayView extends Component {
+  isToday() {
     return (this.props.day === moment().format('YYYYMMDD'));
   }
 
