@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Picker } from 'emoji-mart'
+import 'emoji-mart/css/emoji-mart.css'
 import './styles.css';
 
 export default class EmojiPicker extends Component{

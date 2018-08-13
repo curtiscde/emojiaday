@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Calendar from 'react-calendar';
-import Config from '../../config';
 import { Emoji } from 'emoji-mart';
 import './styles.css';
 import Loading from '../../components/Loading';
@@ -9,44 +7,15 @@ import history from '../../history';
 import moment from 'moment';
 import EmojiSelection from '../../components/EmojiSelection';
 
-export default class CalendarView extends Component {
+import { connect } from "react-redux"
+import * as userEntries from '../../actions/userEntriesActions';
 
-  constructor(props){
-    super(props);
-
-    this.state = {
-      entries: null,
-      entriesLoaded: false
-    };
-
-    this.handleDayClick = this.handleDayClick.bind(this);
-    this.handleEmojiSelectionUpdate = this.handleEmojiSelectionUpdate.bind(this);
-  }
+class CalendarView extends Component {
 
   componentDidMount(){
-    this.getEntries();
+    console.log(this.props);
+    this.props.dispatch(userEntries.fetchUserEntries());
   }
-
-  getEntries(){
-    console.log('getE');
-    let self = this;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-    axios.get(`${Config.serviceUri}/api/entries/user`)
-        .then(res => {
-          self.setState({
-              ...self.state,
-              entries: res.data,
-              entriesLoaded: true
-            });
-        })
-        .catch(error => {
-          console.log(error);
-          self.setState({
-            ...self.state,
-            entriesLoaded: true
-          });
-        });
-    }
 
     getEntryForDate(entries, date){
       return entries
@@ -65,30 +34,25 @@ export default class CalendarView extends Component {
       }
     }
 
-    handleEmojiSelectionUpdate(){
-      this.getEntries();
-    }
-
     render(){
 
         const addTileContent = ({date, view}) => {
-          const entry = this.getEntryForDate(this.state.entries, date);
+          const entry = this.getEntryForDate(this.props.userEntries.entries, date);
           return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='twitter' size={20} /> : null
         };
 
         return (
             <div>
               {
-                this.state.entriesLoaded ?
+                this.props.userEntries.fetched ?
                 <div>
                   <Calendar
                     tileContent={addTileContent}
                     className={['calendar']}
-                    onClickDay={this.handleDayClick}
+                    onClickDay={this.handleDayClick.bind(this)}
                   />
                   <EmojiSelection
                     day={moment().format('YYYYMMDD')}
-                    onUpdate={this.handleEmojiSelectionUpdate}
                   />
                 </div> :
                 <Loading/>
@@ -97,3 +61,11 @@ export default class CalendarView extends Component {
         )
     }
 }
+
+CalendarView = connect(store => {
+  return {
+    userEntries: store.userEntries
+  };
+})(CalendarView);
+
+export default CalendarView;

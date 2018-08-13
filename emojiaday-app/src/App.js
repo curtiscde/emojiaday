@@ -5,7 +5,6 @@ import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
 import CalendarView from './scenes/CalendarView/index';
-import AddEntry from './scenes/AddEntry';
 import DayView from './scenes/DayView/index';
 import AuthCallback from './components/AuthCallback';
 import Footer from './components/Footer';
@@ -51,7 +50,6 @@ class App extends Component {
                   return <AuthCallback auth={auth}/>;
                 }}
               />
-              <Route exact path="/addentry" component={AddEntry} />
               <Route exact path="/day/:day" component={DayView} />
             </Grid>
             <Footer isAuthenticated={auth.isAuthenticated} />

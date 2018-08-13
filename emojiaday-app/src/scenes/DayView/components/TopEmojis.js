@@ -36,7 +36,7 @@ export default class TopEmojis extends Component{
                             </Typography>
                         </Grid>
                         {this.props.data.map((topEmoji, index) => (
-                            <Grid xs={4} style={{ textAlign: 'center', paddingTop:12 }}>
+                            <Grid xs={4} style={{ textAlign: 'center', paddingTop:12 }} key={index}>
                                 <IconButton key={topEmoji._id} style={{ backgroundColor: getBackgroundColor(index) }}>
                                     {
                                         topEmoji.count > 10 ?
