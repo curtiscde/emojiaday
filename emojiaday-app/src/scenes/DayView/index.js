@@ -11,15 +11,14 @@ import EmojiSelection from '../../components/EmojiSelection';
 import TopEmojis from './components/TopEmojis';
 
 
-export default class DayView extends Component{
-
-  constructor(){
+export default class DayView extends Component {
+  constructor() {
     super();
     this.state = {
       dayData: null,
       dayDataLoaded: false,
-      userEmojiId: null
-    }
+      userEmojiId: null,
+    };
   }
 
   componentDidMount(){
