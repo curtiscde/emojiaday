@@ -30,13 +30,13 @@ export default class TopEmojis extends Component{
             <Card>
                 <CardContent>
                     <Grid container spacing={24}>
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             <Typography variant="subheading" color="inherit">
                                 Top emojis for {moment(this.props.day).format('D MMMM YYYY')}
                             </Typography>
                         </Grid>
                         {this.props.data.map((topEmoji, index) => (
-                            <Grid xs={4} style={{ textAlign: 'center', paddingTop:12 }} key={index}>
+                            <Grid item xs={4} style={{ textAlign: 'center', paddingTop:12 }} key={index}>
                                 <IconButton key={topEmoji._id} style={{ backgroundColor: getBackgroundColor(index) }}>
                                     {
                                         topEmoji.count > 10 ?
