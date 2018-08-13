@@ -23,7 +23,6 @@ class CalendarView extends Component {
     };
 
     this.handleDayClick = this.handleDayClick.bind(this);
-    this.handleEmojiSelectionUpdate = this.handleEmojiSelectionUpdate.bind(this);
   }
 
   componentDidMount(){
@@ -48,10 +47,6 @@ class CalendarView extends Component {
       }
     }
 
-    handleEmojiSelectionUpdate(){
-      this.props.dispatch(userEntries.fetchUserEntries());
-    }
-
     render(){
 
         const addTileContent = ({date, view}) => {
@@ -71,7 +66,6 @@ class CalendarView extends Component {
                   />
                   <EmojiSelection
                     day={moment().format('YYYYMMDD')}
-                    onUpdate={this.handleEmojiSelectionUpdate}
                   />
                 </div> :
                 <Loading/>

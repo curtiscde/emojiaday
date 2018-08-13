@@ -10,16 +10,10 @@ export default class DayView extends Component{
 
   constructor(props){
     super();
-
-    this.handleEmojiSelectSubmitComplete = this.handleEmojiSelectSubmitComplete.bind(this);
   }
 
   isToday(){
     return (this.props.day === moment().format('YYYYMMDD'));
-  }
-
-  handleEmojiSelectSubmitComplete(){
-    this.props.onUpdate();
   }
 
   render(){
@@ -36,9 +30,9 @@ export default class DayView extends Component{
                     }
                 </Typography>
             </Grid>
-            <EmojiSelect day={this.props.day} onSubmitComplete={this.handleEmojiSelectSubmitComplete} index={0} />
-            <EmojiSelect day={this.props.day} onSubmitComplete={this.handleEmojiSelectSubmitComplete} index={1} />
-            <EmojiSelect day={this.props.day} onSubmitComplete={this.handleEmojiSelectSubmitComplete} index={2} />
+            <EmojiSelect day={this.props.day} index={0} />
+            <EmojiSelect day={this.props.day} index={1} />
+            <EmojiSelect day={this.props.day} index={2} />
           </Grid>
         </CardContent>
       </Card>
