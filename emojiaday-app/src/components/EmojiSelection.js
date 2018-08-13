@@ -21,7 +21,7 @@ export default class DayView extends Component{
       <Card>
         <CardContent>
           <Grid container spacing={24}>
-            <Grid xs={12}>
+            <Grid item xs={12}>
                 <Typography variant="subheading" color="inherit">
                     {
                       this.isToday() ?

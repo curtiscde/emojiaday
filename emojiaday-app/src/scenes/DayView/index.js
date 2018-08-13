@@ -44,8 +44,7 @@ export default class DayView extends Component {
           });
   }
 
-  render(){
-
+  render() {
     const styles = {
       root: {
         flexGrow: 1,
