@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Config from '../config';
 
 export function fetchUserEntries(){
     return function(dispatch){

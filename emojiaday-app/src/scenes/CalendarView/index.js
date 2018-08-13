@@ -9,6 +9,8 @@ import history from '../../history';
 import moment from 'moment';
 import EmojiSelection from '../../components/EmojiSelection';
 
+import * as userEntries from '../../actions/userEntriesActions';
+
 export default class CalendarView extends Component {
 
   constructor(props){
@@ -24,6 +26,7 @@ export default class CalendarView extends Component {
   }
 
   componentDidMount(){
+    userEntries.fetchUserEntries();
     this.getEntries();
   }
 
