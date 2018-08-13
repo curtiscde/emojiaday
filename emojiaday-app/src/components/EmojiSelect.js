@@ -13,7 +13,10 @@ import moment from 'moment';
 import ReactGA from 'react-ga';
 import EmojiPicker from './EmojiPicker/index';
 
-export default class DayView extends Component{
+import { connect } from "react-redux"
+import * as userEntries from '../actions/userEntriesActions';
+
+class EmojiSelect extends Component{
 
   state = {
     dialogOpen: false,
@@ -100,7 +103,8 @@ export default class DayView extends Component{
           action: 'Update',
           label: emojiId
         });
-        this.props.onSubmitComplete();
+        // this.props.onSubmitComplete();
+        this.props.dispatch(userEntries.fetchUserEntries());
       }).catch(error => {
         this.setState({
           ...this.state,
@@ -173,3 +177,5 @@ export default class DayView extends Component{
     )
   }
 }
+
+export default connect()(EmojiSelect);
