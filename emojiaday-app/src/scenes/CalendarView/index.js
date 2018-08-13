@@ -11,9 +11,7 @@ import { connect } from "react-redux"
 import * as userEntries from '../../actions/userEntriesActions';
 
 class CalendarView extends Component {
-
-  componentDidMount(){
-    console.log(this.props);
+  componentDidMount() {
     this.props.dispatch(userEntries.fetchUserEntries());
   }
 
