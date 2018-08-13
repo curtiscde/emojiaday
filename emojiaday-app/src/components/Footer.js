@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './Footer.css';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import AddIcon from '@material-ui/icons/Add';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import TodayIcon from '@material-ui/icons/Today';
 import history from '../history';
 import moment from 'moment';
 
@@ -15,7 +15,7 @@ export default class Footer extends Component {
                 history.replace('/');
                 break;
             }
-            case 'addentry':{
+            case 'today':{
                 history.replace(`/day/${moment().format('YYYYMMDD')}`);
                 break;
             }
@@ -34,7 +34,7 @@ export default class Footer extends Component {
                     showLabels
                 >
                     <BottomNavigationAction label="Calendar" value="calendar" icon={<CalendarTodayIcon />} />
-                    <BottomNavigationAction label="Add Entry" value="addentry" icon={<AddIcon />} />
+                    <BottomNavigationAction label="Today" value="today" icon={<TodayIcon />} />
                 </BottomNavigation>
             </footer>
             : null
