@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Calendar from 'react-calendar';
-import Config from '../../config';
 import { Emoji } from 'emoji-mart';
 import './styles.css';
 import Loading from '../../components/Loading';
@@ -13,17 +11,6 @@ import { connect } from "react-redux"
 import * as userEntries from '../../actions/userEntriesActions';
 
 class CalendarView extends Component {
-
-  constructor(props){
-    super(props);
-
-    this.state = {
-      entries: null,
-      entriesLoaded: false
-    };
-
-    this.handleDayClick = this.handleDayClick.bind(this);
-  }
 
   componentDidMount(){
     console.log(this.props);
@@ -62,7 +49,7 @@ class CalendarView extends Component {
                   <Calendar
                     tileContent={addTileContent}
                     className={['calendar']}
-                    onClickDay={this.handleDayClick}
+                    onClickDay={this.handleDayClick.bind(this)}
                   />
                   <EmojiSelection
                     day={moment().format('YYYYMMDD')}
