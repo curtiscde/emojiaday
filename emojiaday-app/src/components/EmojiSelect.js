@@ -134,7 +134,7 @@ class EmojiSelect extends Component{
           action: 'Add',
           label: emojiId
         });
-        this.props.onSubmitComplete();
+        this.props.dispatch(userEntries.fetchUserEntries());
       }).catch(error => {
         this.setState({
           ...this.state,

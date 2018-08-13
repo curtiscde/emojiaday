@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import Calendar from 'react-calendar';
 import { Emoji } from 'emoji-mart';
 import './styles.css';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import Loading from '../../components/Loading';
 import history from '../../history';
-import moment from 'moment';
+
 import EmojiSelection from '../../components/EmojiSelection';
 
-import { connect } from "react-redux"
+
 import * as userEntries from '../../actions/userEntriesActions';
 
 class CalendarView extends Component {
-
-  componentDidMount(){
-    console.log(this.props);
+  componentDidMount() {
     this.props.dispatch(userEntries.fetchUserEntries());
   }
 

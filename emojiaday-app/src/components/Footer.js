@@ -8,7 +8,6 @@ import history from '../history';
 import moment from 'moment';
 
 export default class Footer extends Component {
-    
     handleChange(e, value){
         switch(value){
             case 'calendar':{
@@ -25,7 +24,7 @@ export default class Footer extends Component {
         }
     }
     
-    render(){
+    render() {
         return (
             this.props.isAuthenticated() ?
             <footer>
