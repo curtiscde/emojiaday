@@ -8,6 +8,8 @@ import Badge from '@material-ui/core/Badge';
 import { Emoji } from 'emoji-mart';
 import moment from 'moment';
 
+import EmojiBadge from '../../../components/EmojiBadge';
+
 export default class TopEmojis extends Component {
   render() {
     const styles = {
@@ -36,19 +38,7 @@ export default class TopEmojis extends Component {
             </Grid>
             {this.props.data.map((topEmoji, index) => (
               <Grid item xs={4} style={{ textAlign: 'center', paddingTop: 12 }} key={index}>
-                <IconButton key={topEmoji._id} style={{ backgroundColor: getBackgroundColor(index) }}>
-                  {
-                    topEmoji.count > 10
-                      ? (
-                        <Badge badgeContent={topEmoji.count} color="primary" classes={{ badge: styles.badge }}>
-                          <Emoji emoji={topEmoji._id} set="twitter" size={32} />
-                        </Badge>
-                      )
-                      : (
-                        <Emoji emoji={topEmoji._id} set="twitter" size={32} />
-                      )
-                  }
-                </IconButton>
+                <EmojiBadge emoji={topEmoji} index={index} />
               </Grid>
             ))}
           </Grid>
