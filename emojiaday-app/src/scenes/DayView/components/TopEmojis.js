@@ -4,7 +4,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-
 import EmojiBadge from '../../../components/EmojiBadge';
 
 export default class TopEmojis extends Component {

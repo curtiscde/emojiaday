@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import { Emoji } from 'emoji-mart';
@@ -18,6 +18,8 @@ const EmojiBadge = (props) => {
         : index === 2 ? 'rgba(205, 127, 50, 0.3)'
         : '';
   }
+
+  if (!props.emoji) return null;
 
   return (
     <IconButton key={props.emoji._id} style={{ backgroundColor: getBackgroundColor(props.index) }}>
