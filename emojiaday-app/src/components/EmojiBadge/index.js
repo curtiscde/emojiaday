@@ -1,6 +1,7 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import PropTypes from 'prop-types';
 import { Emoji } from 'emoji-mart';
 
 const EmojiBadge = (props) => {
@@ -46,6 +47,11 @@ const EmojiBadge = (props) => {
       }
     </IconButton>
   );
-}
+};
+
+EmojiBadge.propTypes = {
+  emoji: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default EmojiBadge;
