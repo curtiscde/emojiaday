@@ -12,12 +12,22 @@ const EmojiBadge = (props) => {
     },
   };
 
-  const getBackgroundColor = index => {
-    return index === 0  ? 'rgba(255, 215, 0, 0.3)'
-        : index === 1 ? 'rgba(211, 211, 211, 0.3)'
-        : index === 2 ? 'rgba(205, 127, 50, 0.3)'
-        : '';
-  }
+  const getBackgroundColor = (index) => {
+    switch (index) {
+      case 0: {
+        return 'rgba(255, 215, 0, 0.3)';
+      }
+      case 1: {
+        return 'rgba(211, 211, 211, 0.3)';
+      }
+      case 2: {
+        return 'rgba(205, 127, 50, 0.3)';
+      }
+      default: {
+        return null;
+      }
+    }
+  };
 
   if (!props.emoji) return null;
 
