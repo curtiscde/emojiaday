@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmojiBadge matches snapshot when emoji and index of 0 passed 1`] = `
+<button
+  className="MuiButtonBase-root-7 MuiIconButton-root-1"
+  disabled={false}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 215, 0, 0.3)",
+    }
+  }
+  tabIndex="0"
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-6"
+  >
+    <span
+      className="emoji-mart-emoji"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      title={null}
+    >
+      <span
+        style={
+          Object {
+            "backgroundImage": "url(https://unpkg.com/emoji-datasource-twitter@4.0.4/img/twitter/sheets-256/64.png)",
+            "backgroundPosition": "58.8235294117647% 54.90196078431372%",
+            "backgroundSize": "5200%",
+            "display": "inline-block",
+            "height": 32,
+            "width": 32,
+          }
+        }
+      />
+    </span>
+  </span>
+  <span
+    className="MuiTouchRipple-root-10"
+  />
+</button>
+`;
+
+exports[`EmojiBadge matches snapshot when emoji and index of 1 passed 1`] = `
+<button
+  className="MuiButtonBase-root-7 MuiIconButton-root-1"
+  disabled={false}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(211, 211, 211, 0.3)",
+    }
+  }
+  tabIndex="0"
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-6"
+  >
+    <span
+      className="emoji-mart-emoji"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      title={null}
+    >
+      <span
+        style={
+          Object {
+            "backgroundImage": "url(https://unpkg.com/emoji-datasource-twitter@4.0.4/img/twitter/sheets-256/64.png)",
+            "backgroundPosition": "58.8235294117647% 54.90196078431372%",
+            "backgroundSize": "5200%",
+            "display": "inline-block",
+            "height": 32,
+            "width": 32,
+          }
+        }
+      />
+    </span>
+  </span>
+  <span
+    className="MuiTouchRipple-root-10"
+  />
+</button>
+`;
+
+exports[`EmojiBadge matches snapshot when emoji and index of 2 passed 1`] = `
+<button
+  className="MuiButtonBase-root-7 MuiIconButton-root-1"
+  disabled={false}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(205, 127, 50, 0.3)",
+    }
+  }
+  tabIndex="0"
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-6"
+  >
+    <span
+      className="emoji-mart-emoji"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      title={null}
+    >
+      <span
+        style={
+          Object {
+            "backgroundImage": "url(https://unpkg.com/emoji-datasource-twitter@4.0.4/img/twitter/sheets-256/64.png)",
+            "backgroundPosition": "58.8235294117647% 54.90196078431372%",
+            "backgroundSize": "5200%",
+            "display": "inline-block",
+            "height": 32,
+            "width": 32,
+          }
+        }
+      />
+    </span>
+  </span>
+  <span
+    className="MuiTouchRipple-root-10"
+  />
+</button>
+`;
+
+exports[`EmojiBadge matches snapshot when emoji passed 1`] = `
+<button
+  className="MuiButtonBase-root-7 MuiIconButton-root-1"
+  disabled={false}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": null,
+    }
+  }
+  tabIndex="0"
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-6"
+  >
+    <span
+      className="emoji-mart-emoji"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      title={null}
+    >
+      <span
+        style={
+          Object {
+            "backgroundImage": "url(https://unpkg.com/emoji-datasource-twitter@4.0.4/img/twitter/sheets-256/64.png)",
+            "backgroundPosition": "58.8235294117647% 54.90196078431372%",
+            "backgroundSize": "5200%",
+            "display": "inline-block",
+            "height": 32,
+            "width": 32,
+          }
+        }
+      />
+    </span>
+  </span>
+  <span
+    className="MuiTouchRipple-root-10"
+  />
+</button>
+`;
+
+exports[`EmojiBadge matches snapshot when emoji passed with count 1`] = `
+<button
+  className="MuiButtonBase-root-7 MuiIconButton-root-1"
+  disabled={false}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": null,
+    }
+  }
+  tabIndex="0"
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-6"
+  >
+    <span
+      className="emoji-mart-emoji"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      title={null}
+    >
+      <span
+        style={
+          Object {
+            "backgroundImage": "url(https://unpkg.com/emoji-datasource-twitter@4.0.4/img/twitter/sheets-256/64.png)",
+            "backgroundPosition": "58.8235294117647% 54.90196078431372%",
+            "backgroundSize": "5200%",
+            "display": "inline-block",
+            "height": 32,
+            "width": 32,
+          }
+        }
+      />
+    </span>
+  </span>
+  <span
+    className="MuiTouchRipple-root-10"
+  />
+</button>
+`;
+
+exports[`EmojiBadge matches snapshot when emoji passed with count greater than 10 1`] = `
+<button
+  className="MuiButtonBase-root-7 MuiIconButton-root-1"
+  disabled={false}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": null,
+    }
+  }
+  tabIndex="0"
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-6"
+  >
+    <span
+      className="MuiBadge-root-17"
+    >
+      <span
+        className="emoji-mart-emoji"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        title={null}
+      >
+        <span
+          style={
+            Object {
+              "backgroundImage": "url(https://unpkg.com/emoji-datasource-twitter@4.0.4/img/twitter/sheets-256/64.png)",
+              "backgroundPosition": "58.8235294117647% 54.90196078431372%",
+              "backgroundSize": "5200%",
+              "display": "inline-block",
+              "height": 32,
+              "width": 32,
+            }
+          }
+        />
+      </span>
+      <span
+        className="MuiBadge-badge-18 [object Object] MuiBadge-colorPrimary-19"
+      >
+        15
+      </span>
+    </span>
+  </span>
+  <span
+    className="MuiTouchRipple-root-10"
+  />
+</button>
+`;
+
+exports[`EmojiBadge matches snapshot when empty 1`] = `null`;
