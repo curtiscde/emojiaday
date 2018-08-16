@@ -7,11 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
 import EmojiSelection from '../../components/EmojiSelection';
 import TopEmojis from './components/TopEmojis';
+import * as dayEntries from '../../actions/dayEntriesActions';
 
-
-export default class DayView extends Component {
+class DayView extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,8 +22,8 @@ export default class DayView extends Component {
     };
   }
 
-  componentDidMount(){
-    
+  componentDidMount() {
+    this.props.dispatch(dayEntries.fetchDayEntries());
     this.getData();
   }
 
@@ -79,3 +80,9 @@ export default class DayView extends Component {
     )
   }
 }
+
+DayView = connect((store) => {
+  return {};
+})(DayView);
+
+export default DayView;
