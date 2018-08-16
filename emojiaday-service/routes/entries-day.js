@@ -19,7 +19,7 @@ module.exports = (apiRoutes) => {
 
     });
 
-    apiRoutes.get('/entries/day/:day', authHelper.jwtCheck, (req, res) => {
+    apiRoutes.get('/entries/day/:day', (req, res) => {
 
         const day = moment(req.params.day).toDate();
     
