@@ -6,7 +6,10 @@ export function fetchDayEntries(day) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get(`${Config.serviceUri}/api/entries/day/${day}`)
       .then(res => {
-        dispatch({ type: 'FETCH_DAY_ENTRIES_FULFILLED', payload: res.data });
+        dispatch({ type: 'FETCH_DAY_ENTRIES_FULFILLED', payload: {
+          day: day,
+          data: res.data,
+        }});
       })
       .catch(error => {
         dispatch({ type: 'FETCH_DAY_ENTRIES_REJECTED', payload: error });

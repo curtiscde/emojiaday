@@ -23,7 +23,7 @@ class DayView extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(dayEntries.fetchDayEntries());
+    this.props.dispatch(dayEntries.fetchDayEntries(this.props.match.params.day));
     this.getData();
   }
 
