@@ -8,7 +8,9 @@ module.exports = (apiRoutes) => {
         entryHelper.getEntriesByUser(req.user.sub).then(entries => {
             res.json(entries.map(entry => ({
                 date: entry.date,
-                emoji: entry.emoji
+                emoji: entry.emoji,
+                entryid: entry._id,
+                index: entry.index,
             })));
         });
         
