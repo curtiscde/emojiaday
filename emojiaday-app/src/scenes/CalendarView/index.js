@@ -37,14 +37,14 @@ class CalendarView extends Component {
     render(){
 
         const addTileContent = ({date, view}) => {
-          const entry = this.getEntryForDate(this.props.userEntries.entries, date);
+          const entry = this.getEntryForDate(this.props.userEntriesDay.entries, date);
           return view === 'month' && entry && entry.length ? <Emoji emoji={entry[0].emoji} set='twitter' size={20} /> : null
         };
 
         return (
             <div>
               {
-                this.props.userEntries.fetched ?
+                this.props.userEntriesDay.fetched ?
                 <div>
                   <Calendar
                     tileContent={addTileContent}
@@ -62,9 +62,9 @@ class CalendarView extends Component {
     }
 }
 
-CalendarView = connect(store => {
+CalendarView = connect((store) => {
   return {
-    userEntries: store.userEntries
+    userEntriesDay: store.userEntriesDay,
   };
 })(CalendarView);
 
