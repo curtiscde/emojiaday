@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Config from '../../config';
 import moment from 'moment';
-import Loading from '../../components/Loading';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,17 +8,9 @@ import { connect } from 'react-redux';
 import EmojiSelection from '../../components/EmojiSelection';
 import TopEmojis from './components/TopEmojis';
 import * as dayEntries from '../../actions/dayEntriesActions';
+import Loading from '../../components/Loading';
 
 class DayView extends Component {
-  constructor() {
-    super();
-    this.state = {
-      dayData: null,
-      dayDataLoaded: false,
-      userEmojiId: null,
-    };
-  }
-
   componentDidMount() {
     this.props.dispatch(dayEntries.fetchDayEntries(this.props.match.params.day));
   }
@@ -32,12 +21,6 @@ class DayView extends Component {
         flexGrow: 1,
       },
     };
-
-    // const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
-    //   <Grid item xs={12}>
-    //     <TopEmojis day={this.props.match.params.day} data={this.state.dayData.topEmojis}/>
-    //   </Grid>
-    // : null;
 
     const topEmojis = this.props.dayEntries && this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].topEmojis.length ?
       <Grid item xs={12}>
