@@ -23,7 +23,13 @@ export default function reducer(state = {
     case 'FETCH_USER_ENTRIES_FULFILLED': {
       const userEntriesByDay = action.payload.filter(entry => action.payload
         .filter(entryCompare => moment(entryCompare.date).startOf('day').diff(moment(entry.date).startOf('day'), 'days') === 0
-          && entryCompare.index < entry.index).length === 0);
+          && entryCompare.index < entry.index).length === 0)
+        .map(entry => {
+          return {
+          date: entry.date,
+          emoji: entry.emoji,
+          };
+        });
 
       return {
         ...state,
