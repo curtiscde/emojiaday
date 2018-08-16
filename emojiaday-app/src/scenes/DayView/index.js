@@ -22,13 +22,13 @@ class DayView extends Component {
       },
     };
 
-    const topEmojis = this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].topEmojis.length ?
+    const topEmojis = this.props.dayEntries[this.props.match.params.day] && this.props.dayEntries[this.props.match.params.day].topEmojis.length ?
       <Grid item xs={12}>
-        <TopEmojis day={this.props.match.params.day} data={this.props.dayEntries.days[this.props.match.params.day].topEmojis}/>
+        <TopEmojis day={this.props.match.params.day} data={this.props.dayEntries[this.props.match.params.day].topEmojis}/>
       </Grid>
     : null;
 
-    const view = this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].fetched ?
+    const view = this.props.dayEntries[this.props.match.params.day] && this.props.dayEntries[this.props.match.params.day].fetched ?
       <div>
         <EmojiSelection day={this.props.match.params.day}/>
         {topEmojis}
@@ -52,7 +52,7 @@ class DayView extends Component {
 
 DayView = connect((store) => {
   return {
-    dayEntries: store.dayEntries,
+    dayEntries: store.dayEntries.days,
   };
 })(DayView);
 
