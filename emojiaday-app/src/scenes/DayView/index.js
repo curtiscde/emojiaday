@@ -22,7 +22,7 @@ class DayView extends Component {
       },
     };
 
-    const topEmojis = this.props.dayEntries && this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].topEmojis.length ?
+    const topEmojis = this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].topEmojis.length ?
       <Grid item xs={12}>
         <TopEmojis day={this.props.match.params.day} data={this.props.dayEntries.days[this.props.match.params.day].topEmojis}/>
       </Grid>
