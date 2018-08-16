@@ -1,47 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Config from '../../config';
 import moment from 'moment';
-import Loading from '../../components/Loading';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
 import EmojiSelection from '../../components/EmojiSelection';
 import TopEmojis from './components/TopEmojis';
+import * as dayEntries from '../../actions/dayEntriesActions';
+import Loading from '../../components/Loading';
 
-
-export default class DayView extends Component {
-  constructor() {
-    super();
-    this.state = {
-      dayData: null,
-      dayDataLoaded: false,
-      userEmojiId: null,
-    };
-  }
-
-  componentDidMount(){
-    this.getData();
-  }
-
-  getData(){
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get(`${Config.serviceUri}/api/entries/day/${this.props.match.params.day}`)
-          .then(res => {
-              this.setState({
-                ...this.state,
-                dayData: res.data,
-                dayDataLoaded: true,
-              });
-          })
-          .catch(function (error) {
-            console.log(error);
-            this.setState({
-              ...this.state,
-              dayDataLoaded: true
-            });
-          });
+class DayView extends Component {
+  componentDidMount() {
+    this.props.dispatch(dayEntries.fetchDayEntries(this.props.match.params.day));
   }
 
   render() {
@@ -51,13 +22,13 @@ export default class DayView extends Component {
       },
     };
 
-    const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
+    const topEmojis = this.props.dayEntries[this.props.match.params.day] && this.props.dayEntries[this.props.match.params.day].topEmojis.length ?
       <Grid item xs={12}>
-        <TopEmojis day={this.props.match.params.day} data={this.state.dayData.topEmojis}/>
+        <TopEmojis day={this.props.match.params.day} data={this.props.dayEntries[this.props.match.params.day].topEmojis}/>
       </Grid>
     : null;
 
-    const view = this.state.dayDataLoaded ?
+    const view = this.props.dayEntries[this.props.match.params.day] && this.props.dayEntries[this.props.match.params.day].fetched ?
       <div>
         <EmojiSelection day={this.props.match.params.day}/>
         {topEmojis}
@@ -78,3 +49,11 @@ export default class DayView extends Component {
     )
   }
 }
+
+DayView = connect((store) => {
+  return {
+    dayEntries: store.dayEntries.days,
+  };
+})(DayView);
+
+export default DayView;
