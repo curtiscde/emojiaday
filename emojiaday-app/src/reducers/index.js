@@ -1,7 +1,9 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import userEntries from './userEntries'
+import userEntriesDay from './userEntriesDayReducer';
+import userEntries from './userEntriesReducer';
 
 export default combineReducers({
-    userEntries
-})
+  userEntriesDay,
+  userEntries,
+});
