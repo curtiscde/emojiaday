@@ -24,26 +24,6 @@ class DayView extends Component {
 
   componentDidMount() {
     this.props.dispatch(dayEntries.fetchDayEntries(this.props.match.params.day));
-    this.getData();
-  }
-
-  getData(){
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get(`${Config.serviceUri}/api/entries/day/${this.props.match.params.day}`)
-          .then(res => {
-              this.setState({
-                ...this.state,
-                dayData: res.data,
-                dayDataLoaded: true,
-              });
-          })
-          .catch(function (error) {
-            console.log(error);
-            this.setState({
-              ...this.state,
-              dayDataLoaded: true
-            });
-          });
   }
 
   render() {
@@ -53,13 +33,19 @@ class DayView extends Component {
       },
     };
 
-    const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
+    // const topEmojis = this.state.dayData && this.state.dayData.topEmojis.length ?
+    //   <Grid item xs={12}>
+    //     <TopEmojis day={this.props.match.params.day} data={this.state.dayData.topEmojis}/>
+    //   </Grid>
+    // : null;
+
+    const topEmojis = this.props.dayEntries && this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].topEmojis.length ?
       <Grid item xs={12}>
-        <TopEmojis day={this.props.match.params.day} data={this.state.dayData.topEmojis}/>
+        <TopEmojis day={this.props.match.params.day} data={this.props.dayEntries.days[this.props.match.params.day].topEmojis}/>
       </Grid>
     : null;
 
-    const view = this.state.dayDataLoaded ?
+    const view = this.props.dayEntries.days[this.props.match.params.day] && this.props.dayEntries.days[this.props.match.params.day].fetched ?
       <div>
         <EmojiSelection day={this.props.match.params.day}/>
         {topEmojis}
@@ -82,7 +68,9 @@ class DayView extends Component {
 }
 
 DayView = connect((store) => {
-  return {};
+  return {
+    dayEntries: store.dayEntries,
+  };
 })(DayView);
 
 export default DayView;

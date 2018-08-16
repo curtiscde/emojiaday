@@ -26,6 +26,7 @@ export default function reducer(state = {
           ...state.days,
           [action.payload.day]: {
             fetching: false,
+            fetched: true,
             topEmojis: action.payload.data.topEmojis,
           }
         },
