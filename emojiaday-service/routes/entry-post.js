@@ -1,8 +1,6 @@
 import moment from 'moment';
 import Entry from '../models/entry';
-import entryHelper from '../helpers/entry-helper';
 import authHelper from '../helpers/auth-helper';
-import { rejects } from 'assert';
 
 module.exports = (apiRoutes) => {
 
