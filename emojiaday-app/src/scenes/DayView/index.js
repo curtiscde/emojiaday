@@ -22,6 +22,7 @@ export default class DayView extends Component {
   }
 
   componentDidMount(){
+    
     this.getData();
   }
 
