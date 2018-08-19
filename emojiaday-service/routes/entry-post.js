@@ -24,9 +24,13 @@ module.exports = (apiRoutes) => {
         const dateNow = moment().toDate();
         const index = +req.body.index;
         const emoji = req.body.emoji;
-        
 
-        if (!emoji){
+        const hoursDifference = moment(date).diff(moment(dateNow), 'hours');
+        
+        if (hoursDifference > 48 || hoursDifference < -48) {
+            res.status(500).send('Date falls outside of allowed period');
+        }        
+        else if (!emoji){
             res.status(500).send('Missing emoji data');
         }
         else if (index < 0 || index > MAX_INDEX){
