@@ -28,9 +28,9 @@ export default function reducer(state = {
             fetching: false,
             fetched: true,
             topEmojis: action.payload.data.topEmojis,
-          }
+          },
         },
-      }
+      };
     }
     default: {
       return state;
