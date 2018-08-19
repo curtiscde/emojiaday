@@ -8,13 +8,20 @@ module.exports = (apiRoutes) => {
 
     //Required Params
     // userid (req.user.sub)
+    // date (int - YYYYMMDD)
     // index
     // emoji
     apiRoutes.post('/entry/day', authHelper.jwtCheck, (req, res) => {
         console.log('📩 POST entry day');
 
+        if (!req.body.date || req.body.date.length !== 8){
+            res.status(500).send('Missing or invalid date');
+            return;
+        }
+
         const userid = req.user.sub;
-        const date = moment().toDate();
+        const date = moment.utc(req.body.date).toDate();
+        const dateNow = moment().toDate();
         const index = +req.body.index;
         const emoji = req.body.emoji;
         
@@ -58,6 +65,7 @@ module.exports = (apiRoutes) => {
                     Entry.create({
                         userid: userid,
                         date: date,
+                        lastUpdated: dateNow,
                         index: index,
                         emoji: emoji,
                     }, (e, newEntry) => {    
