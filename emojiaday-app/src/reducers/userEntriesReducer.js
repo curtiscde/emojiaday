@@ -1,3 +1,22 @@
+import moment from 'moment';
+
+const createDayProperties = (entries) => {
+  const data = {};
+  entries.forEach((entry) => {
+    const entryDateFormatted = moment(data).format('YYYYMMDD');
+    if (!data[entryDateFormatted]) {
+      data[entryDateFormatted] = {};
+    }
+    if (!data[entryDateFormatted][entry.index]) {
+      data[entryDateFormatted][entry.index] = {
+        emoji: entry.emoji,
+        entryid: entry._id,
+      };
+    }
+  });
+  return data;
+};
+
 export default function reducer(state = {
   entries: [],
   fetching: false,
@@ -23,7 +42,7 @@ export default function reducer(state = {
         ...state,
         fetching: false,
         fetched: true,
-        entries: action.payload,
+        entries: createDayProperties(action.payload),
       };
     }
     default: {

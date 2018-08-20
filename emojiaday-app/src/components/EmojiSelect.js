@@ -46,20 +46,21 @@ class EmojiSelect extends Component{
       iconRequest: true
     });
 
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-    axios.get(`${Config.serviceUri}/api/entry/user/${this.props.day}/${this.props.index}`).then(res => {
+    if (this.props.userEntries && this.props.userEntries[this.props.day] && this.props.userEntries[this.props.day][this.props.index]){
       this.setState({
         ...this.state,
-        emoji: res.data.entry ? res.data.entry.emoji : null,
-        entryId: res.data.entry ? res.data.entry._id : null,
+        emoji: this.props.userEntries[this.props.day][this.props.index].emoji,
+        entryId: this.props.userEntries[this.props.day][this.props.index].entryid,
         iconRequest: false
       });
-    }).catch(err => {
+    }
+    else{
       this.setState({
         ...this.state,
         iconRequest: false
       });
-    });
+    }
+
   }
 
   handleIconClick(){
@@ -120,34 +121,34 @@ class EmojiSelect extends Component{
 
       this.props.dispatch(userEntries.addUserEntry(emojiId, this.props.index, moment().format('YYYYMMDD')));
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.post(`${Config.serviceUri}/api/entry/day`, {
-        emoji: emojiId,
-        index: this.props.index,
-        date: moment().format('YYYYMMDD'),
-      }).then(res => {
-        this.setState({
-          ...this.state,
-          emoji: res.data.emoji,
-          entryId: res.data._id,
-          iconRequest: false
-        });
-        ReactGA.event({
-          category: 'Emoji Entry',
-          action: 'Add',
-          label: emojiId
-        });
-        this.props.dispatch(userEntries.fetchUserEntries());
-      }).catch(error => {
-        this.setState({
-          ...this.state,
-          iconRequest: false
-        });
-        ReactGA.event({
-          category: 'Error',
-          action: 'Emoji Entry Add'
-        });
-      });
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      // axios.post(`${Config.serviceUri}/api/entry/day`, {
+      //   emoji: emojiId,
+      //   index: this.props.index,
+      //   date: moment().format('YYYYMMDD'),
+      // }).then(res => {
+      //   this.setState({
+      //     ...this.state,
+      //     emoji: res.data.emoji,
+      //     entryId: res.data._id,
+      //     iconRequest: false
+      //   });
+      //   ReactGA.event({
+      //     category: 'Emoji Entry',
+      //     action: 'Add',
+      //     label: emojiId
+      //   });
+      //   this.props.dispatch(userEntries.fetchUserEntries());
+      // }).catch(error => {
+      //   this.setState({
+      //     ...this.state,
+      //     iconRequest: false
+      //   });
+      //   ReactGA.event({
+      //     category: 'Error',
+      //     action: 'Emoji Entry Add'
+      //   });
+      // });
 
     }
 
@@ -180,4 +181,8 @@ class EmojiSelect extends Component{
   }
 }
 
-export default connect()(EmojiSelect);
+export default connect((store) => {
+  return {
+    userEntries: store.userEntries.entries,
+  };
+})(EmojiSelect);
