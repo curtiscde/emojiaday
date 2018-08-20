@@ -52,11 +52,13 @@ export function addUserEntry(emojiId, index, date) {
 }
 
 export function updateUserEntry(entryid, emoji) {
+  dispatch({ type: 'UPDATE_USER_ENTRY_PENDING' });
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
   axios.put(`${Config.serviceUri}/api/entry/day`, {
     entryid,
     emoji,
   }).then(res => {
+    dispatch({ type: 'UPDATE_USER_ENTRY_FULFILLED', payload: res.data });
     // this.setState({
     //   ...this.state,
     //   emoji: res.data.emoji,
@@ -69,6 +71,7 @@ export function updateUserEntry(entryid, emoji) {
     });
     fetchUserEntries();
   }).catch(error => {
+    dispatch({ type: 'UPDATE_USER_ENTRY_REJECTED', payload: error });
     // this.setState({
     //   ...this.state,
     //   iconRequest: false
