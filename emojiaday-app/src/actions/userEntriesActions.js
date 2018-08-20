@@ -50,3 +50,32 @@ export function addUserEntry(emojiId, index, date) {
     });
   };
 }
+
+export function updateUserEntry(entryid, emoji) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+  axios.put(`${Config.serviceUri}/api/entry/day`, {
+    entryid,
+    emoji,
+  }).then(res => {
+    // this.setState({
+    //   ...this.state,
+    //   emoji: res.data.emoji,
+    //   iconRequest: false
+    // });
+    ReactGA.event({
+      category: 'Emoji Entry',
+      action: 'Update',
+      label: emoji
+    });
+    fetchUserEntries();
+  }).catch(error => {
+    // this.setState({
+    //   ...this.state,
+    //   iconRequest: false
+    // });
+    ReactGA.event({
+      category: 'Error',
+      action: 'Emoji Entry Update'
+    });
+  });
+}
