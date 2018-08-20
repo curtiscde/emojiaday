@@ -49,11 +49,11 @@ class EmojiSelect extends Component{
       iconRequest: true
     });
 
-    if (this.props.userEntries && this.props.userEntries[this.props.day] && this.props.userEntries[this.props.day][this.props.index]){
+    if (this.props.userEntries && this.props.userEntries.entries && this.props.userEntries.entries[this.props.day] && this.props.userEntries.entries[this.props.day][this.props.index]){
       this.setState({
         ...this.state,
-        emoji: this.props.userEntries[this.props.day][this.props.index].emoji,
-        entryId: this.props.userEntries[this.props.day][this.props.index].entryid,
+        emoji: this.props.userEntries.entries[this.props.day][this.props.index].emoji,
+        entryId: this.props.userEntries.entries[this.props.day][this.props.index].entryid,
         iconRequest: false
       });
     }
@@ -133,7 +133,7 @@ class EmojiSelect extends Component{
         <IconButton onClick={this.handleIconClick}>
           {
             this.state.iconRequest ? <CircularProgress size={32} />
-            : this.props.userEntries && this.props.userEntries[this.props.day] && this.props.userEntries[this.props.day][this.props.index] ? <Emoji emoji={this.props.userEntries[this.props.day][this.props.index].emoji} set='twitter' size={32} />
+            : this.props.userEntries && this.props.userEntries.entries && this.props.userEntries.entries[this.props.day] && this.props.userEntries.entries[this.props.day][this.props.index] ? <Emoji emoji={this.props.userEntries.entries[this.props.day][this.props.index].emoji} set='twitter' size={32} />
             : this.isToday ? <AddCircleOutlined style={{ fontSize: 40 }}/>
             : null
           }
@@ -155,6 +155,6 @@ class EmojiSelect extends Component{
 
 export default connect((store) => {
   return {
-    userEntries: store.userEntries.entries,
+    userEntries: store.userEntries,
   };
 })(EmojiSelect);
