@@ -36,6 +36,9 @@ class EmojiSelect extends Component{
   }
 
   componentDidMount(){
+    if (!this.props.userEntries.fetching && !this.props.userEntries.fetched){
+      this.props.dispatch(userEntries.fetchUserEntries());
+    }
     this.getEntry();
   }
 
@@ -118,38 +121,7 @@ class EmojiSelect extends Component{
 
     }
     else{
-
       this.props.dispatch(userEntries.addUserEntry(emojiId, this.props.index, moment().format('YYYYMMDD')));
-
-      // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      // axios.post(`${Config.serviceUri}/api/entry/day`, {
-      //   emoji: emojiId,
-      //   index: this.props.index,
-      //   date: moment().format('YYYYMMDD'),
-      // }).then(res => {
-      //   this.setState({
-      //     ...this.state,
-      //     emoji: res.data.emoji,
-      //     entryId: res.data._id,
-      //     iconRequest: false
-      //   });
-      //   ReactGA.event({
-      //     category: 'Emoji Entry',
-      //     action: 'Add',
-      //     label: emojiId
-      //   });
-      //   this.props.dispatch(userEntries.fetchUserEntries());
-      // }).catch(error => {
-      //   this.setState({
-      //     ...this.state,
-      //     iconRequest: false
-      //   });
-      //   ReactGA.event({
-      //     category: 'Error',
-      //     action: 'Emoji Entry Add'
-      //   });
-      // });
-
     }
 
 
@@ -161,7 +133,7 @@ class EmojiSelect extends Component{
         <IconButton onClick={this.handleIconClick}>
           {
             this.state.iconRequest ? <CircularProgress size={32} />
-            : this.state.emoji ? <Emoji emoji={this.state.emoji} set='twitter' size={32} />
+            : this.props.userEntries && this.props.userEntries[this.props.day] && this.props.userEntries[this.props.day][this.props.index] ? <Emoji emoji={this.props.userEntries[this.props.day][this.props.index].emoji} set='twitter' size={32} />
             : this.isToday ? <AddCircleOutlined style={{ fontSize: 40 }}/>
             : null
           }
