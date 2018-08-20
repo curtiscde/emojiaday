@@ -4,9 +4,18 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import EmojiSelect from './EmojiSelect';
+import * as userEntries from '../actions/userEntriesActions';
 
-export default class DayView extends Component {
+class EmojiSelection extends Component {
+
+  componentDidMount() {
+    if (!this.props.userEntries.fetching && !this.props.userEntries.fetched) {
+      this.props.dispatch(userEntries.fetchUserEntries());
+    }
+  }
+
   isToday() {
     return (this.props.day === moment().format('YYYYMMDD'));
   }
@@ -25,12 +34,27 @@ export default class DayView extends Component {
                     }
                 </Typography>
             </Grid>
-            <EmojiSelect day={this.props.day} index={0} />
-            <EmojiSelect day={this.props.day} index={1} />
-            <EmojiSelect day={this.props.day} index={2} />
+            <EmojiSelect day={this.props.day} index={0} entry={this.props.userEntries
+                                                            && this.props.userEntries.entries
+                                                            && this.props.userEntries.entries[this.props.day]
+                                                            && this.props.userEntries.entries[this.props.day][0]} />
+            <EmojiSelect day={this.props.day} index={1} entry={this.props.userEntries
+                                                            && this.props.userEntries.entries
+                                                            && this.props.userEntries.entries[this.props.day]
+                                                            && this.props.userEntries.entries[this.props.day][1]} />
+            <EmojiSelect day={this.props.day} index={2} entry={this.props.userEntries
+                                                            && this.props.userEntries.entries
+                                                            && this.props.userEntries.entries[this.props.day]
+                                                            && this.props.userEntries.entries[this.props.day][2]} />
           </Grid>
         </CardContent>
       </Card>
     )
   }
 }
+
+export default connect((store) => {
+  return {
+    userEntries: store.userEntries,
+  };
+})(EmojiSelection);
