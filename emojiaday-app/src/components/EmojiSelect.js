@@ -118,6 +118,8 @@ class EmojiSelect extends Component{
     }
     else{
 
+      this.props.dispatch(userEntries.addUserEntry(emojiId, this.props.index, moment().format('YYYYMMDD')));
+
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
       axios.post(`${Config.serviceUri}/api/entry/day`, {
         emoji: emojiId,

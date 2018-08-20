@@ -1,6 +1,7 @@
 import axios from 'axios';
-import Config from '../config';
 import ReactGA from 'react-ga';
+import moment from 'moment';
+import Config from '../config';
 
 export function fetchUserEntries() {
   return function(dispatch){
@@ -15,15 +16,15 @@ export function fetchUserEntries() {
   }
 }
 
-export function postUserEntry(emojiId, index, date) {
+export function addUserEntry(emojiId, index, date) {
   return (dispatch) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.post(`${Config.serviceUri}/api/entry/day`, {
       emoji: emojiId,
-      index: this.props.index,
-      date: moment().format('YYYYMMDD'),
+      index,
+      date,
     }).then((res) => {
-      dispatch({ type: 'POST USER_ENTRY_FULFILLED', payload: res.data })
+      dispatch({ type: 'POST_USER_ENTRY_FULFILLED', payload: res.data });
       // this.setState({
       //   ...this.state,
       //   emoji: res.data.emoji,
@@ -35,9 +36,9 @@ export function postUserEntry(emojiId, index, date) {
         action: 'Add',
         label: emojiId
       });
-      this.props.dispatch(userEntries.fetchUserEntries());
+      fetchUserEntries();
     }).catch(error => {
-      dispatch({ type: 'POST USER_ENTRY_REJECTED', payload: res.data })
+      dispatch({ type: 'POST_USER_ENTRY_REJECTED', payload: error })
       // this.setState({
       //   ...this.state,
       //   iconRequest: false
