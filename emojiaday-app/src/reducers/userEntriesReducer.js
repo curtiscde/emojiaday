@@ -48,19 +48,21 @@ export default function reducer(state = {
       };
     }
     case 'POST_USER_ENTRY_PENDING': {
-      return {
+      const newState = {
         ...state,
-        entries: {
-          ...state.entries,
-          [action.payload.date]: {
-            ...state.entries[action.payload.date],
-            [action.payload.index]: {
-              ...state.entries[action.payload.date][action.payload.index],
-              requestPending: true,
-            },
-          },
-        },
       };
+
+      if (!newState.entries || !newState.entries[action.payload.date]) {
+        newState.entries[action.payload.date] = {};
+      };
+
+      if (!newState.entries[action.payload.date][action.payload.index]) {
+        newState.entries[action.payload.date][action.payload.index] = {};
+      };
+
+      newState.entries[action.payload.date][action.payload.index].requestPending = true;
+
+      return newState;
     }
     case 'UPDATE_USER_ENTRY_PENDING': {
       return {
