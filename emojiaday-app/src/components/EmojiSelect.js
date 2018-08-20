@@ -37,6 +37,7 @@ class EmojiSelect extends Component{
 
   componentDidMount(){
     if (!this.props.userEntries.fetching && !this.props.userEntries.fetched){
+      console.log('fetching..');
       this.props.dispatch(userEntries.fetchUserEntries());
     }
     this.getEntry();

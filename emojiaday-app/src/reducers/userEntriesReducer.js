@@ -18,13 +18,13 @@ const createDayProperties = (entries) => {
 };
 
 export default function reducer(state = {
-  entries: [],
+  entries: {},
   fetching: false,
   fetched: false,
   error: null,
 }, action) {
   switch (action.type) {
-    case 'FETCH_USER_ENTRIES': {
+    case 'FETCH_USER_ENTRIES_PENDING': {
       return {
         ...state,
         fetching: true,

@@ -4,6 +4,7 @@ import Config from '../config';
 
 export function fetchUserEntries() {
   return (dispatch) => {
+    dispatch({ type: 'FETCH_USER_ENTRIES_PENDING' });
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get(`${Config.serviceUri}/api/entries/user`)
       .then((res) => {
