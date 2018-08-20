@@ -3,7 +3,7 @@ import moment from 'moment';
 const createDayProperties = (entries) => {
   const data = {};
   entries.forEach((entry) => {
-    const entryDateFormatted = moment(data).format('YYYYMMDD');
+    const entryDateFormatted = moment(entry.date).format('YYYYMMDD');
     if (!data[entryDateFormatted]) {
       data[entryDateFormatted] = {};
     }
