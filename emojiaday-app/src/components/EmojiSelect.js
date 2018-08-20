@@ -88,7 +88,7 @@ class EmojiSelect extends Component{
     this.setState({
       ...this.state,
       dialogOpen: false,
-      iconRequest: true
+      // iconRequest: true
     });
 
     if (this.props.entry){

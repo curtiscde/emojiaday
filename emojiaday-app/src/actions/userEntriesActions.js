@@ -36,7 +36,7 @@ export function addUserEntry(emojiId, index, date) {
         action: 'Add',
         label: emojiId,
       });
-      fetchUserEntries();
+      dispatch(fetchUserEntries());
     }).catch((error) => {
       dispatch({ type: 'POST_USER_ENTRY_REJECTED', payload: error });
       // this.setState({
@@ -60,6 +60,7 @@ export function updateUserEntry(entryid, emoji) {
       emoji,
     }).then(res => {
       dispatch({ type: 'UPDATE_USER_ENTRY_FULFILLED', payload: res.data });
+      dispatch(fetchUserEntries());
       // this.setState({
       //   ...this.state,
       //   emoji: res.data.emoji,
