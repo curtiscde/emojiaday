@@ -4,12 +4,18 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import EmojiSelect from './EmojiSelect';
-
-import { connect } from "react-redux"
 import * as userEntries from '../actions/userEntriesActions';
 
 class EmojiSelection extends Component {
+
+  componentDidMount() {
+    if (!this.props.userEntries.fetching && !this.props.userEntries.fetched) {
+      this.props.dispatch(userEntries.fetchUserEntries());
+    }
+  }
+
   isToday() {
     return (this.props.day === moment().format('YYYYMMDD'));
   }

@@ -20,9 +20,6 @@ class EmojiSelect extends Component{
 
   state = {
     dialogOpen: false,
-    emoji: null,
-    entryId: null,
-    iconRequest: false
   };
 
   constructor(props){
@@ -33,38 +30,6 @@ class EmojiSelect extends Component{
     this.handleIconClick = this.handleIconClick.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleEmojiSelect = this.handleEmojiSelect.bind(this);
-  }
-
-  componentDidMount(){
-    if (!this.props.userEntries.fetching && !this.props.userEntries.fetched){
-      console.log('fetching..');
-      this.props.dispatch(userEntries.fetchUserEntries());
-    }
-    this.getEntry();
-  }
-
-  getEntry(){
-
-    this.setState({
-      ...this.state,
-      iconRequest: true
-    });
-
-    if (this.props.userEntries && this.props.userEntries.entries && this.props.userEntries.entries[this.props.day] && this.props.userEntries.entries[this.props.day][this.props.index]){
-      this.setState({
-        ...this.state,
-        emoji: this.props.userEntries.entries[this.props.day][this.props.index].emoji,
-        entryId: this.props.userEntries.entries[this.props.day][this.props.index].entryid,
-        iconRequest: false
-      });
-    }
-    else{
-      this.setState({
-        ...this.state,
-        iconRequest: false
-      });
-    }
-
   }
 
   handleIconClick(){
