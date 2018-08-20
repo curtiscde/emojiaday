@@ -91,8 +91,7 @@ class EmojiSelect extends Component{
       iconRequest: true
     });
 
-    if (this.state.entryId){
-
+    if (this.props.entry){
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
       axios.put(`${Config.serviceUri}/api/entry/day`, {
         entryid: this.state.entryId,
@@ -134,7 +133,7 @@ class EmojiSelect extends Component{
         <IconButton onClick={this.handleIconClick}>
           {
             this.state.iconRequest ? <CircularProgress size={32} />
-            : this.props.userEntries && this.props.userEntries.entries && this.props.userEntries.entries[this.props.day] && this.props.userEntries.entries[this.props.day][this.props.index] ? <Emoji emoji={this.props.userEntries.entries[this.props.day][this.props.index].emoji} set='twitter' size={32} />
+            : this.props.entry ? <Emoji emoji={this.props.entry.emoji} set='twitter' size={32} />
             : this.isToday ? <AddCircleOutlined style={{ fontSize: 40 }}/>
             : null
           }

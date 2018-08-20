@@ -6,7 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import EmojiSelect from './EmojiSelect';
 
-export default class DayView extends Component {
+import { connect } from "react-redux"
+import * as userEntries from '../actions/userEntriesActions';
+
+class EmojiSelection extends Component {
   isToday() {
     return (this.props.day === moment().format('YYYYMMDD'));
   }
@@ -25,12 +28,27 @@ export default class DayView extends Component {
                     }
                 </Typography>
             </Grid>
-            <EmojiSelect day={this.props.day} index={0} />
-            <EmojiSelect day={this.props.day} index={1} />
-            <EmojiSelect day={this.props.day} index={2} />
+            <EmojiSelect day={this.props.day} index={0} entry={this.props.userEntries
+                                                            && this.props.userEntries.entries
+                                                            && this.props.userEntries.entries[this.props.day]
+                                                            && this.props.userEntries.entries[this.props.day][0]} />
+            <EmojiSelect day={this.props.day} index={1} entry={this.props.userEntries
+                                                            && this.props.userEntries.entries
+                                                            && this.props.userEntries.entries[this.props.day]
+                                                            && this.props.userEntries.entries[this.props.day][1]} />
+            <EmojiSelect day={this.props.day} index={2} entry={this.props.userEntries
+                                                            && this.props.userEntries.entries
+                                                            && this.props.userEntries.entries[this.props.day]
+                                                            && this.props.userEntries.entries[this.props.day][2]} />
           </Grid>
         </CardContent>
       </Card>
     )
   }
 }
+
+export default connect((store) => {
+  return {
+    userEntries: store.userEntries,
+  };
+})(EmojiSelection);

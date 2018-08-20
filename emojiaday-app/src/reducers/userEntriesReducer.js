@@ -9,8 +9,10 @@ const createDayProperties = (entries) => {
     }
     if (!data[entryDateFormatted][entry.index]) {
       data[entryDateFormatted][entry.index] = {
+        date: entryDateFormatted,
         emoji: entry.emoji,
-        entryid: entry._id,
+        entryid: entry.entryid,
+        index: entry.index,
       };
     }
   });
