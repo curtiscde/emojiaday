@@ -92,32 +92,33 @@ class EmojiSelect extends Component{
     });
 
     if (this.props.entry){
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.put(`${Config.serviceUri}/api/entry/day`, {
-        entryid: this.state.entryId,
-        emoji: emojiId,
-      }).then(res => {
-        this.setState({
-          ...this.state,
-          emoji: res.data.emoji,
-          iconRequest: false
-        });
-        ReactGA.event({
-          category: 'Emoji Entry',
-          action: 'Update',
-          label: emojiId
-        });
-        this.props.dispatch(userEntries.fetchUserEntries());
-      }).catch(error => {
-        this.setState({
-          ...this.state,
-          iconRequest: false
-        });
-        ReactGA.event({
-          category: 'Error',
-          action: 'Emoji Entry Update'
-        });
-      });
+      this.props.dispatch(userEntries.updateUserEntry(this.props.entry.entryid, emojiId));
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      // axios.put(`${Config.serviceUri}/api/entry/day`, {
+      //   entryid: this.state.entryId,
+      //   emoji: emojiId,
+      // }).then(res => {
+      //   this.setState({
+      //     ...this.state,
+      //     emoji: res.data.emoji,
+      //     iconRequest: false
+      //   });
+      //   ReactGA.event({
+      //     category: 'Emoji Entry',
+      //     action: 'Update',
+      //     label: emojiId
+      //   });
+      //   this.props.dispatch(userEntries.fetchUserEntries());
+      // }).catch(error => {
+      //   this.setState({
+      //     ...this.state,
+      //     iconRequest: false
+      //   });
+      //   ReactGA.event({
+      //     category: 'Error',
+      //     action: 'Emoji Entry Update'
+      //   });
+      // });
 
     }
     else{
