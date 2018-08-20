@@ -18,6 +18,7 @@ export function fetchUserEntries() {
 
 export function addUserEntry(emojiId, index, date) {
   return (dispatch) => {
+    dispatch({ type: 'POST_USER_ENTRY_PENDING', payload: { date, index } });
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.post(`${Config.serviceUri}/api/entry/day`, {
       emoji: emojiId,
@@ -48,20 +49,20 @@ export function updateUserEntry(entry, emoji) {
     axios.put(`${Config.serviceUri}/api/entry/day`, {
       entryid: entry.entryid,
       emoji,
-    }).then(res => {
+    }).then((res) => {
       dispatch({ type: 'UPDATE_USER_ENTRY_FULFILLED', payload: res.data });
       dispatch(fetchUserEntries());
       ReactGA.event({
         category: 'Emoji Entry',
         action: 'Update',
-        label: emoji
+        label: emoji,
       });
       fetchUserEntries();
-    }).catch(error => {
+    }).catch((error) => {
       dispatch({ type: 'UPDATE_USER_ENTRY_REJECTED', payload: error });
       ReactGA.event({
         category: 'Error',
-        action: 'Emoji Entry Update'
+        action: 'Emoji Entry Update',
       });
     });
   };
