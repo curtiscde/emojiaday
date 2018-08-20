@@ -25,12 +25,6 @@ export function addUserEntry(emojiId, index, date) {
       date,
     }).then((res) => {
       dispatch({ type: 'POST_USER_ENTRY_FULFILLED', payload: res.data });
-      // this.setState({
-      //   ...this.state,
-      //   emoji: res.data.emoji,
-      //   entryId: res.data._id,
-      //   iconRequest: false
-      // });
       ReactGA.event({
         category: 'Emoji Entry',
         action: 'Add',
@@ -39,10 +33,6 @@ export function addUserEntry(emojiId, index, date) {
       dispatch(fetchUserEntries());
     }).catch((error) => {
       dispatch({ type: 'POST_USER_ENTRY_REJECTED', payload: error });
-      // this.setState({
-      //   ...this.state,
-      //   iconRequest: false
-      // });
       ReactGA.event({
         category: 'Error',
         action: 'Emoji Entry Add',
@@ -51,21 +41,16 @@ export function addUserEntry(emojiId, index, date) {
   };
 }
 
-export function updateUserEntry(entryid, emoji) {
+export function updateUserEntry(entry, emoji) {
   return (dispatch) => {
-    dispatch({ type: 'UPDATE_USER_ENTRY_PENDING' });
+    dispatch({ type: 'UPDATE_USER_ENTRY_PENDING', payload: entry });
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.put(`${Config.serviceUri}/api/entry/day`, {
-      entryid,
+      entryid: entry.entryid,
       emoji,
     }).then(res => {
       dispatch({ type: 'UPDATE_USER_ENTRY_FULFILLED', payload: res.data });
       dispatch(fetchUserEntries());
-      // this.setState({
-      //   ...this.state,
-      //   emoji: res.data.emoji,
-      //   iconRequest: false
-      // });
       ReactGA.event({
         category: 'Emoji Entry',
         action: 'Update',
@@ -74,10 +59,6 @@ export function updateUserEntry(entryid, emoji) {
       fetchUserEntries();
     }).catch(error => {
       dispatch({ type: 'UPDATE_USER_ENTRY_REJECTED', payload: error });
-      // this.setState({
-      //   ...this.state,
-      //   iconRequest: false
-      // });
       ReactGA.event({
         category: 'Error',
         action: 'Emoji Entry Update'

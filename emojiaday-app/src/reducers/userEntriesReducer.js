@@ -47,6 +47,21 @@ export default function reducer(state = {
         entries: createDayProperties(action.payload),
       };
     }
+    case 'UPDATE_USER_ENTRY_PENDING': {
+      return {
+        ...state,
+        entries: {
+          ...state.entries,
+          [action.payload.date]: {
+            ...state.entries[action.payload.date],
+            [action.payload.index]: {
+              ...state.entries[action.payload.date][action.payload.index],
+              requestPending: true,
+            },
+          },
+        },
+      };
+    }
     default: {
       return state;
     }
