@@ -6,7 +6,7 @@ import history from './history';
 import NavBar from './components/NavBar';
 import CalendarView from './scenes/CalendarView/index';
 import DayView from './scenes/DayView/index';
-import AuthCallback from './components/AuthCallback';
+import AuthCallback from './scenes/AuthCallback';
 import Footer from './components/Footer';
 import './App.css';
 import ReactGA from 'react-ga';
