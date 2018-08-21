@@ -36,17 +36,17 @@ export default class Auth {
     history.replace('/');
   }
 
-  handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        history.replace('/');
-      } else if (err) {
-        history.replace('/');
-        console.log(err);
-      }
-    });
-  }
+  // handleAuthentication() {
+  //   this.auth0.parseHash((err, authResult) => {
+  //     if (authResult && authResult.accessToken && authResult.idToken) {
+  //       this.setSession(authResult);
+  //       history.replace('/');
+  //     } else if (err) {
+  //       history.replace('/');
+  //       console.log(err);
+  //     }
+  //   });
+  // }
 
   setSession(authResult) {
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
