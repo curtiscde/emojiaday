@@ -89,8 +89,4 @@ class EmojiSelect extends Component{
   }
 }
 
-export default connect((store) => {
-  return {
-    userEntries: store.userEntries,
-  };
-})(EmojiSelect);
+export default connect()(EmojiSelect);
