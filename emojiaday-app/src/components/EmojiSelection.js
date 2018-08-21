@@ -5,8 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+
 import EmojiSelect from './EmojiSelect';
+import EmojiPicker from './EmojiPicker/index';
 import * as userEntries from '../actions/userEntriesActions';
+import * as entryEditor from '../actions/entryEditorActions';
 
 class EmojiSelection extends Component {
 
@@ -20,7 +26,26 @@ class EmojiSelection extends Component {
     return (this.props.day === moment().format('YYYYMMDD'));
   }
 
-  render(){
+  handleEmojiSelectClick(day, index, entry) {
+    this.props.dispatch(entryEditor.openDialog(day, index, entry));
+  }
+
+  handleCloseDialog() {
+    this.props.dispatch(entryEditor.closeDialog());
+  }
+
+  handleEmojiPickerSelect(emoji) {
+    this.props.dispatch(entryEditor.closeDialog());
+
+    if (this.props.entryEditor.entry) {
+      this.props.dispatch(userEntries.updateUserEntry(this.props.entryEditor.entry, emoji));
+    }
+    else{
+      this.props.dispatch(userEntries.addUserEntry(emoji, this.props.entryEditor.index, moment().format('YYYYMMDD')));
+    }
+  }
+
+  render() {
     return (
       <Card>
         <CardContent>
@@ -34,20 +59,28 @@ class EmojiSelection extends Component {
                     }
                 </Typography>
             </Grid>
-            <EmojiSelect day={this.props.day} index={0} entry={this.props.userEntries
-                                                            && this.props.userEntries.entries
-                                                            && this.props.userEntries.entries[this.props.day]
-                                                            && this.props.userEntries.entries[this.props.day][0]} />
-            <EmojiSelect day={this.props.day} index={1} entry={this.props.userEntries
-                                                            && this.props.userEntries.entries
-                                                            && this.props.userEntries.entries[this.props.day]
-                                                            && this.props.userEntries.entries[this.props.day][1]} />
-            <EmojiSelect day={this.props.day} index={2} entry={this.props.userEntries
-                                                            && this.props.userEntries.entries
-                                                            && this.props.userEntries.entries[this.props.day]
-                                                            && this.props.userEntries.entries[this.props.day][2]} />
+            {[0,1,2].map(i => (
+              <EmojiSelect key={i} 
+                          day={this.props.day}
+                          index={i}
+                          onClick={this.handleEmojiSelectClick.bind(this)}
+                          entry={this.props.userEntries
+                                  && this.props.userEntries.entries
+                                  && this.props.userEntries.entries[this.props.day]
+                                  && this.props.userEntries.entries[this.props.day][i]} />
+            ))}
           </Grid>
         </CardContent>
+        <Dialog
+          open={this.props.entryEditor.dialogOpen}
+          onClose={this.handleCloseDialog.bind(this)}>
+          <EmojiPicker onSelect={this.handleEmojiPickerSelect.bind(this)} />
+          <DialogActions>
+            <Button onClick={this.handleCloseDialog.bind(this)} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Card>
     )
   }
@@ -55,6 +88,7 @@ class EmojiSelection extends Component {
 
 export default connect((store) => {
   return {
+    entryEditor: store.entryEditor,
     userEntries: store.userEntries,
   };
 })(EmojiSelection);
