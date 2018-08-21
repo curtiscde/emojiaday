@@ -9,6 +9,12 @@ export default function reducer(state = {
         dialogOpen: true,
       };
     }
+    case 'CLOSE_EDITOR_DIALOG': {
+      return {
+        ...state,
+        dialogOpen: false,
+      };
+    }
     default: {
       return state;
     }

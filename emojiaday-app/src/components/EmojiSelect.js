@@ -7,12 +7,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import { Emoji } from 'emoji-mart'
 import Button from '@material-ui/core/Button';
-import Config from '../config';
-import axios from 'axios';
 import moment from 'moment';
-import ReactGA from 'react-ga';
 import EmojiPicker from './EmojiPicker/index';
-
 import { connect } from "react-redux"
 import * as userEntries from '../actions/userEntriesActions';
 
@@ -33,12 +29,13 @@ class EmojiSelect extends Component{
   }
 
   handleIconClick(){
-    if (this.isToday){
-      this.setState({
-        ...this.state,
-        dialogOpen: true,
-      });
-    }
+    this.props.onClick(this.props.day, this.props.index, this.props.entry);
+    // if (this.isToday){
+    //   this.setState({
+    //     ...this.state,
+    //     dialogOpen: true,
+    //   });
+    // }
   }
 
   handleCloseDialog(){
@@ -74,16 +71,6 @@ class EmojiSelect extends Component{
             : null
           }
         </IconButton>
-        <Dialog
-          open={this.state.dialogOpen}
-          onClose={this.handleCloseDialog}>
-          <EmojiPicker onSelect={this.handleEmojiSelect} />
-          <DialogActions>
-            <Button onClick={this.handleCloseDialog} color="primary">
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Grid>
     )
   }
