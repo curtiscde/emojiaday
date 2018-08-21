@@ -35,7 +35,6 @@ class EmojiSelection extends Component {
   }
 
   handleEmojiPickerSelect(emoji) {
-
     this.props.dispatch(entryEditor.closeDialog());
 
     if (this.props.entryEditor.entry) {
@@ -46,7 +45,7 @@ class EmojiSelection extends Component {
     }
   }
 
-  render(){
+  render() {
     return (
       <Card>
         <CardContent>
