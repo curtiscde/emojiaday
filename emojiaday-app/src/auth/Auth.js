@@ -58,8 +58,6 @@ export default class Auth {
   }
 
   isAuthenticated() {
-    // Check whether the current time is past the 
-    // Access Token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     console.log(expiresAt - new Date().getTime());
     return new Date().getTime() < expiresAt;
@@ -92,5 +90,9 @@ export default class Auth {
         console.log(`renew scheduled in ${delay}`);
       }, delay);
     }
+    // else{
+    //   console.log('renew on load');
+    //   this.renewToken();
+    // }
   }
 };
