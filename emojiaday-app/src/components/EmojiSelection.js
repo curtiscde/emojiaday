@@ -27,7 +27,9 @@ class EmojiSelection extends Component {
   }
 
   handleEmojiSelectClick(day, index, entry) {
-    this.props.dispatch(entryEditor.openDialog(day, index, entry));
+    if (this.isToday()) {
+      this.props.dispatch(entryEditor.openDialog(day, index, entry));
+    }
   }
 
   handleCloseDialog() {
