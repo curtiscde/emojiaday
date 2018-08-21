@@ -6,7 +6,10 @@ export default function reducer(state = {
     case 'OPEN_EDITOR_DIALOG': {
       return {
         ...state,
+        day: action.payload.day,
         dialogOpen: true,
+        entry: action.payload.entry,
+        index: action.payload.index,
       };
     }
     case 'CLOSE_EDITOR_DIALOG': {

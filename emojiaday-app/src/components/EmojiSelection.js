@@ -34,6 +34,18 @@ class EmojiSelection extends Component {
     this.props.dispatch(entryEditor.closeDialog());
   }
 
+  handleEmojiPickerSelect(emoji) {
+
+    this.props.dispatch(entryEditor.closeDialog());
+
+    if (this.props.entryEditor.entry) {
+      this.props.dispatch(userEntries.updateUserEntry(this.props.entryEditor.entry, emoji));
+    }
+    else{
+      this.props.dispatch(userEntries.addUserEntry(emoji, this.props.entryEditor.index, moment().format('YYYYMMDD')));
+    }
+  }
+
   render(){
     return (
       <Card>
@@ -63,7 +75,7 @@ class EmojiSelection extends Component {
         <Dialog
           open={this.props.entryEditor.dialogOpen}
           onClose={this.handleCloseDialog.bind(this)}>
-          <EmojiPicker onSelect={this.handleEmojiSelect} />
+          <EmojiPicker onSelect={this.handleEmojiPickerSelect.bind(this)} />
           <DialogActions>
             <Button onClick={this.handleCloseDialog.bind(this)} color="primary">
               Cancel
