@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as auth from '../actions/authActions';
 
-export default class AuthCallback extends Component {
-    render(){
-        return (
-            <div>
-                Loading...
-            </div>
-        );
-    }
-}
+class AuthCallback extends Component {
+
+  componentWillMount() {
+    this.props.dispatch(auth.receiveLogin());
+  }
+
+  render() {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+};
+
+export default connect()(AuthCallback);
