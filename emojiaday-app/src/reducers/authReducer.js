@@ -11,6 +11,14 @@ export default function reducer(state = {
         idToken: action.payload.authResult.idToken,
       };
     }
+    case 'LOGOUT_SUCCESS': {
+      return {
+        ...state,
+        accessToken: null,
+        expiresAt: null,
+        idToken: null,
+      };
+    }
     default: {
       return state;
     }

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Auth from '../auth/Auth';
+import { logout } from '../actions/authActions';
 
-export default class NavProfile extends Component {
+class NavProfile extends Component {
 
     state = {
         anchorEl: null,
@@ -30,11 +32,11 @@ export default class NavProfile extends Component {
     }
 
     handleLogout = () => {
-        this.auth.logout();
-        this.setState({
-            ...this.state,
-            menuOpen: false
-        });
+      this.props.dispatch(logout());
+      this.setState({
+          ...this.state,
+          menuOpen: false
+      });
     }
 
     render(){
@@ -68,3 +70,5 @@ export default class NavProfile extends Component {
         )
     }
 }
+
+export default connect()(NavProfile);

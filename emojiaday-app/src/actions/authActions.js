@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js';
+import ReactGA from 'react-ga';
 import config from '../config';
 import history from '../history';
 
@@ -23,7 +24,7 @@ export function requestLogin() {
     auth.authorize();
     dispatch({ type: 'LOGIN_REQUESTED' });
   };
-};
+}
 
 export function receiveLogin() {
   return (dispatch) => {
@@ -39,4 +40,18 @@ export function receiveLogin() {
       }
     });
   };
-};
+}
+
+export function logout() {
+  return (dispatch) => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    ReactGA.event({
+      category: 'Authentication',
+      action: 'Logout',
+    });
+    dispatch({ type: 'LOGOUT_SUCCESS' });
+    history.replace('/');
+  };
+}
