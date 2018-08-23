@@ -3,6 +3,10 @@ import ReactGA from 'react-ga';
 import config from '../config';
 import history from '../history';
 
+const AUTH_ACCESS_TOKEN = 'auth_access_token';
+const AUTH_ID_TOKEN = 'auth_id_token';
+const AUTH_EXPIRES_AT = 'auth_expires_at';
+
 const auth = new auth0.WebAuth({
   domain: config.auth0.domain,
   clientID: config.auth0.clientID,
@@ -14,13 +18,13 @@ const auth = new auth0.WebAuth({
 
 const setSession = (authResult) => {
   const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-  localStorage.setItem('access_token', authResult.accessToken);
-  localStorage.setItem('id_token', authResult.idToken);
-  localStorage.setItem('expires_at', expiresAt);
+  localStorage.setItem(AUTH_ACCESS_TOKEN, authResult.accessToken);
+  localStorage.setItem(AUTH_ID_TOKEN, authResult.idToken);
+  localStorage.setItem(AUTH_EXPIRES_AT, expiresAt);
 };
 
 const setLoginExpiryTimeout = (dispatch) => {
-  const sessionTimeout = localStorage.getItem('expires_at') - new Date().getTime();
+  const sessionTimeout = localStorage.getItem(AUTH_EXPIRES_AT) - new Date().getTime();
   if (sessionTimeout > 0) {
     setTimeout(() => {
       dispatch({ type: 'LOGIN_EXPIRED' });
@@ -31,13 +35,13 @@ const setLoginExpiryTimeout = (dispatch) => {
 
 export function checkAuthentication() {
   return (dispatch) => {
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
     if (new Date().getTime() < expiresAt) {
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: {
-          accessToken: localStorage.getItem('access_token'),
-          idToken: localStorage.getItem('id_token'),
+          accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
+          idToken: localStorage.getItem(AUTH_ID_TOKEN),
           expiresAt,
         },
       });
@@ -85,9 +89,9 @@ export function receiveLogin() {
 
 export function logout() {
   return (dispatch) => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    localStorage.removeItem(AUTH_ACCESS_TOKEN);
+    localStorage.removeItem(AUTH_ID_TOKEN);
+    localStorage.removeItem(AUTH_EXPIRES_AT);
     ReactGA.event({
       category: 'Authentication',
       action: 'Logout',
