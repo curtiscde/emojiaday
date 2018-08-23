@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux'
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
@@ -15,7 +16,6 @@ import config from './config';
 const auth = new Auth();
 
 class App extends Component {
-
   constructor() {
     super();
     ReactGA.initialize(config.googleAnalytics.trackingId, {
@@ -25,6 +25,7 @@ class App extends Component {
   }
 
   render() {
+    const { auth } = this.props;
     return (
       <div>
         <Router history={history}>
@@ -50,4 +51,8 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect((store) => {
+  return {
+    auth: store.auth,
+  };
+})(App);
