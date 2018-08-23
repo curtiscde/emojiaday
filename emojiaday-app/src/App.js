@@ -16,7 +16,7 @@ const auth = new Auth();
 
 class App extends Component {
 
-  constructor(){
+  constructor() {
     super();
     ReactGA.initialize(config.googleAnalytics.trackingId, {
       debug: config.debug

@@ -12,7 +12,7 @@ const auth = new auth0.WebAuth({
 });
 
 const setSession = (authResult) => {
-  let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+  const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
   localStorage.setItem('access_token', authResult.accessToken);
   localStorage.setItem('id_token', authResult.idToken);
   localStorage.setItem('expires_at', expiresAt);
@@ -30,7 +30,8 @@ export function receiveLogin() {
     auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         setSession(authResult);
-        dispatch({ type: 'LOGIN_SUCCESS' });
+        const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+        dispatch({ type: 'LOGIN_SUCCESS', payload: { authResult, expiresAt } });
         history.replace('/');
       } else if (err) {
         history.replace('/');
