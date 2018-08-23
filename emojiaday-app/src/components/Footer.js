@@ -25,9 +25,10 @@ export default class Footer extends Component {
     }
     
     render() {
+      const { isAuthenticated } = this.props;
         return (
-            this.props.isAuthenticated() ?
-            <footer>
+            isAuthenticated
+            ? <footer>
                 <BottomNavigation
                     onChange={this.handleChange}
                     showLabels

@@ -53,23 +53,25 @@ class EmojiSelection extends Component {
         <CardContent>
           <Grid container spacing={24}>
             <Grid item xs={12}>
-                <Typography variant="subheading" color="inherit">
-                    {
-                      this.isToday() ?
-                        'Your emojis Today'
-                        : `Your emojis for ${moment(this.props.day).format('D MMMM YYYY')}` 
-                    }
-                </Typography>
+              <Typography variant="subheading" color="inherit">
+                {
+                  this.isToday()
+                    ? 'Your emojis Today'
+                    : `Your emojis for ${moment(this.props.day).format('D MMMM YYYY')}` 
+                }
+              </Typography>
             </Grid>
             {[0,1,2].map(i => (
-              <EmojiSelect key={i} 
-                          day={this.props.day}
-                          index={i}
-                          onClick={this.handleEmojiSelectClick.bind(this)}
-                          entry={this.props.userEntries
-                                  && this.props.userEntries.entries
-                                  && this.props.userEntries.entries[this.props.day]
-                                  && this.props.userEntries.entries[this.props.day][i]} />
+              <EmojiSelect
+                key={i}
+                day={this.props.day}
+                index={i}
+                onClick={this.handleEmojiSelectClick.bind(this)}
+                entry={this.props.userEntries
+                        && this.props.userEntries.entries
+                        && this.props.userEntries.entries[this.props.day]
+                        && this.props.userEntries.entries[this.props.day][i]}
+                />
             ))}
           </Grid>
         </CardContent>
@@ -84,7 +86,7 @@ class EmojiSelection extends Component {
           </DialogActions>
         </Dialog>
       </Card>
-    )
+    );
   }
 }
 

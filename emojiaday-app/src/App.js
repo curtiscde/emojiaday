@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import Grid from '@material-ui/core/Grid';
-import Auth from './auth/Auth';
+import { connect } from 'react-redux'
 import history from './history';
 import NavBar from './components/NavBar';
 import CalendarView from './scenes/CalendarView/index';
 import DayView from './scenes/DayView/index';
-import AuthCallback from './components/AuthCallback';
+import AuthCallback from './scenes/AuthCallback';
 import Footer from './components/Footer';
 import './App.css';
-import ReactGA from 'react-ga';
 import config from './config';
-
-const auth = new Auth();
-
-const handleAuthentication = ({location}) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}
+import { checkAuthentication } from './actions/authActions';
 
 class App extends Component {
-
-  constructor(){
+  constructor() {
     super();
     ReactGA.initialize(config.googleAnalytics.trackingId, {
-      debug: config.debug
+      debug: config.debug,
     });
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
+  componentDidMount() {
+    this.props.dispatch(checkAuthentication());
+  }
+
   render() {
+    const { auth } = this.props;
     return (
       <div>
         <Router history={history}>
@@ -38,18 +35,14 @@ class App extends Component {
             <NavBar isAuthenticated={auth.isAuthenticated}/>
             <Grid container class={['grid-container']} spacing={16}>
               <Route exact path="/" render={() => {
-                if (auth.isAuthenticated()){
+                if (auth.isAuthenticated){
                   return <CalendarView/>;
                 }
                 else{
                   return <div></div>;
                 }
               }} />
-              <Route exact path="/callback" render={(props) => {
-                  handleAuthentication(props);
-                  return <AuthCallback auth={auth}/>;
-                }}
-              />
+              <Route exact path="/callback" component={AuthCallback} />
               <Route exact path="/day/:day" component={DayView} />
             </Grid>
             <Footer isAuthenticated={auth.isAuthenticated} />
@@ -60,4 +53,8 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect((store) => {
+  return {
+    auth: store.auth,
+  };
+})(App);

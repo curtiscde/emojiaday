@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import Auth from '../auth/Auth';
+import { requestLogin } from '../actions/authActions';
 
-export default class Login extends Component {
+class Login extends Component {
   render() {
-
-    const auth = new Auth();
+    const { dispatch } = this.props;
 
     const openAuth0 = () => {
-      auth.login();
+      dispatch(requestLogin());
     };
 
     return (
@@ -18,3 +18,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect()(Login);
