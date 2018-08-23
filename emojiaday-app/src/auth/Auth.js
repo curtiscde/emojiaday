@@ -25,26 +25,6 @@ export default class Auth {
     history.replace('/');
   }
 
-  handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        history.replace('/');
-      } else if (err) {
-        history.replace('/');
-        console.log(err);
-      }
-    });
-  }
-
-  setSession(authResult) {
-    // Set the time that the Access Token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-  }
-
   isAuthenticated() {
     // Check whether the current time is past the 
     // Access Token's expiry time
