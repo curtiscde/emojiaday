@@ -39,10 +39,7 @@ class App extends Component {
                   return <div></div>;
                 }
               }} />
-              <Route exact path="/callback" render={(props) => {
-                  return <AuthCallback auth={auth}/>;
-                }}
-              />
+              <Route exact path="/callback" component={AuthCallback} />
               <Route exact path="/day/:day" component={DayView} />
             </Grid>
             <Footer isAuthenticated={auth.isAuthenticated} />
