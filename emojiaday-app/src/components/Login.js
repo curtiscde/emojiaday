@@ -5,9 +5,10 @@ import { requestLogin } from '../actions/authActions';
 
 class Login extends Component {
   render() {
+    const { dispatch } = this.props;
 
     const openAuth0 = () => {
-      this.props.dispatch(requestLogin());
+      dispatch(requestLogin());
     };
 
     return (

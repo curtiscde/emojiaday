@@ -30,7 +30,6 @@ export default function reducer(state = {
             emoji: entry.emoji,
           };
         });
-
       return {
         ...state,
         fetching: false,
