@@ -3,7 +3,6 @@ import { Router, Route } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
-import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
 import CalendarView from './scenes/CalendarView/index';
@@ -13,13 +12,11 @@ import Footer from './components/Footer';
 import './App.css';
 import config from './config';
 
-const auth = new Auth();
-
 class App extends Component {
   constructor() {
     super();
     ReactGA.initialize(config.googleAnalytics.trackingId, {
-      debug: config.debug
+      debug: config.debug,
     });
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
@@ -33,7 +30,7 @@ class App extends Component {
             <NavBar isAuthenticated={auth.isAuthenticated}/>
             <Grid container class={['grid-container']} spacing={16}>
               <Route exact path="/" render={() => {
-                if (auth.isAuthenticated()){
+                if (auth.isAuthenticated){
                   return <CalendarView/>;
                 }
                 else{

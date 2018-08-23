@@ -6,9 +6,10 @@ import Login from './Login';
 import NavProfile from './NavProfile';
 
 export default class NavBar extends Component {
-  render(){
+  render() {
+    const { isAuthenticated } = this.props;
 
-    const authButton = this.props.isAuthenticated() ? <NavProfile/> : <Login/>;
+    const authButton = isAuthenticated ? <NavProfile/> : <Login/>;
 
     return (
       <div style={{flexGrow:1}}>
