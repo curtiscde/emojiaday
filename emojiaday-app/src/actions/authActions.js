@@ -30,6 +30,7 @@ export function receiveLogin() {
     auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         setSession(authResult);
+        dispatch({ type: 'LOGIN_SUCCESS' });
         history.replace('/');
       } else if (err) {
         history.replace('/');

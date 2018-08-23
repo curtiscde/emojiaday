@@ -14,12 +14,6 @@ import config from './config';
 
 const auth = new Auth();
 
-const handleAuthentication = ({location}) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}
-
 class App extends Component {
 
   constructor(){
@@ -46,7 +40,6 @@ class App extends Component {
                 }
               }} />
               <Route exact path="/callback" render={(props) => {
-                  handleAuthentication(props);
                   return <AuthCallback auth={auth}/>;
                 }}
               />
