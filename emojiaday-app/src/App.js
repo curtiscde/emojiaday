@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import Grid from '@material-ui/core/Grid';
 import Auth from './auth/Auth';
 import history from './history';
 import NavBar from './components/NavBar';
 import CalendarView from './scenes/CalendarView/index';
 import DayView from './scenes/DayView/index';
-import AuthCallback from './components/AuthCallback';
+import AuthCallback from './scenes/AuthCallback';
 import Footer from './components/Footer';
 import './App.css';
-import ReactGA from 'react-ga';
 import config from './config';
 
 const auth = new Auth();
