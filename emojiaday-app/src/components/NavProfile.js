@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Auth from '../auth/Auth';
 import { logout } from '../actions/authActions';
 
 class NavProfile extends Component {
@@ -13,9 +12,7 @@ class NavProfile extends Component {
         anchorEl: null,
         menuOpen: false
     }
-
-    auth = new Auth();
-
+    
     handleMenu = event => {
         this.setState({
             ...this.state,
