@@ -14,6 +14,15 @@ export default function reducer(state = {
         isAuthenticated: true,
       };
     }
+    case 'LOGIN_EXPIRED': {
+      return {
+        ...state,
+        accessToken: null,
+        expiresAt: null,
+        idToken: null,
+        isAuthenticated: false,
+      };
+    }
     case 'LOGOUT_SUCCESS': {
       return {
         ...state,

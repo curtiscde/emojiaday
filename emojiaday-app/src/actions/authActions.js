@@ -26,6 +26,17 @@ export function requestLogin() {
   };
 }
 
+export function scheduleLoginExpiry() {
+  return (dispatch) => {
+    const sessionTimeout = localStorage.getItem('expires_at') - new Date().getTime();
+    if (sessionTimeout > 0) {
+      setTimeout(() => {
+        dispatch({ type: 'LOGIN_EXPIRED' });
+      }, sessionTimeout);
+    }
+  };
+}
+
 export function receiveLogin() {
   return (dispatch) => {
     auth.parseHash((err, authResult) => {
@@ -33,6 +44,13 @@ export function receiveLogin() {
         setSession(authResult);
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
         dispatch({ type: 'LOGIN_SUCCESS', payload: { authResult, expiresAt } });
+        if (authResult.expiresIn > 0) {
+          setTimeout(() => {
+            dispatch({ type: 'LOGIN_EXPIRED' });
+            history.replace('/');
+          }, (authResult.expiresIn * 1000));
+        }
+
         history.replace('/');
       } else if (err) {
         history.replace('/');
