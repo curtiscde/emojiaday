@@ -19,6 +19,15 @@ const setSession = (authResult) => {
   localStorage.setItem('expires_at', expiresAt);
 };
 
+const setLoginExpiryTimeout = (dispatch) => {
+  const sessionTimeout = localStorage.getItem('expires_at') - new Date().getTime();
+  if (sessionTimeout > 0) {
+    setTimeout(() => {
+      dispatch({ type: 'LOGIN_EXPIRED' });
+    }, sessionTimeout);
+  }
+};
+
 export function requestLogin() {
   return (dispatch) => {
     auth.authorize();
@@ -28,12 +37,7 @@ export function requestLogin() {
 
 export function scheduleLoginExpiry() {
   return (dispatch) => {
-    const sessionTimeout = localStorage.getItem('expires_at') - new Date().getTime();
-    if (sessionTimeout > 0) {
-      setTimeout(() => {
-        dispatch({ type: 'LOGIN_EXPIRED' });
-      }, sessionTimeout);
-    }
+    setLoginExpiryTimeout(dispatch);
   };
 }
 
@@ -44,13 +48,7 @@ export function receiveLogin() {
         setSession(authResult);
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
         dispatch({ type: 'LOGIN_SUCCESS', payload: { authResult, expiresAt } });
-        if (authResult.expiresIn > 0) {
-          setTimeout(() => {
-            dispatch({ type: 'LOGIN_EXPIRED' });
-            history.replace('/');
-          }, (authResult.expiresIn * 1000));
-        }
-
+        setLoginExpiryTimeout(dispatch);
         history.replace('/');
       } else if (err) {
         history.replace('/');
