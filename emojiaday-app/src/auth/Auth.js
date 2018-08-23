@@ -14,10 +14,6 @@ export default class Auth {
     scope: 'openid'
   });
 
-  login() {
-    this.auth0.authorize();
-  }
-
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
