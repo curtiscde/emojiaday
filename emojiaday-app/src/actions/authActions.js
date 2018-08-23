@@ -24,9 +24,27 @@ const setLoginExpiryTimeout = (dispatch) => {
   if (sessionTimeout > 0) {
     setTimeout(() => {
       dispatch({ type: 'LOGIN_EXPIRED' });
+      history.replace('/');
     }, sessionTimeout);
   }
 };
+
+export function checkAuthentication() {
+  return (dispatch) => {
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    if (new Date().getTime() < expiresAt) {
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: {
+          accessToken: localStorage.getItem('access_token'),
+          idToken: localStorage.getItem('id_token'),
+          expiresAt,
+        },
+      });
+      setLoginExpiryTimeout(dispatch);
+    }
+  };
+}
 
 export function requestLogin() {
   return (dispatch) => {
@@ -47,7 +65,14 @@ export function receiveLogin() {
       if (authResult && authResult.accessToken && authResult.idToken) {
         setSession(authResult);
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-        dispatch({ type: 'LOGIN_SUCCESS', payload: { authResult, expiresAt } });
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: {
+            accessToken: authResult.accessToken,
+            idToken: authResult.idToken,
+            expiresAt,
+          },
+        });
         setLoginExpiryTimeout(dispatch);
         history.replace('/');
       } else if (err) {

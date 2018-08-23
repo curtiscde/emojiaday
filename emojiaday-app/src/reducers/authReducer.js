@@ -8,9 +8,9 @@ export default function reducer(state = {
     case 'LOGIN_SUCCESS': {
       return {
         ...state,
-        accessToken: action.payload.authResult.accessToken,
+        accessToken: action.payload.accessToken,
         expiresAt: action.payload.expiresAt,
-        idToken: action.payload.authResult.idToken,
+        idToken: action.payload.idToken,
         isAuthenticated: true,
       };
     }

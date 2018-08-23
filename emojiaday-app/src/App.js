@@ -11,6 +11,7 @@ import AuthCallback from './scenes/AuthCallback';
 import Footer from './components/Footer';
 import './App.css';
 import config from './config';
+import { checkAuthentication } from './actions/authActions';
 
 class App extends Component {
   constructor() {
@@ -19,6 +20,10 @@ class App extends Component {
       debug: config.debug,
     });
     ReactGA.pageview(window.location.pathname + window.location.search);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(checkAuthentication());
   }
 
   render() {
