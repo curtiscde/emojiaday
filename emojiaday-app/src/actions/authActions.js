@@ -59,17 +59,19 @@ const setLoginExpiryTimeout = (dispatch) => {
 
 export function checkAuthentication() {
   return (dispatch) => {
-    const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
-    if (new Date().getTime() < expiresAt) {
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: {
-          accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
-          idToken: localStorage.getItem(AUTH_ID_TOKEN),
-          expiresAt,
-        },
-      });
-      setLoginExpiryTimeout(dispatch);
+    if (localStorage.getItem(AUTH_EXPIRES_AT)) {
+      const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
+      if (new Date().getTime() < expiresAt) {
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: {
+            accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
+            idToken: localStorage.getItem(AUTH_ID_TOKEN),
+            expiresAt,
+          },
+        });
+        setLoginExpiryTimeout(dispatch);
+      }
     }
   };
 }
