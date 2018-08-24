@@ -23,29 +23,68 @@ const setSession = (authResult) => {
   localStorage.setItem(AUTH_EXPIRES_AT, expiresAt);
 };
 
+const renewToken = (dispatch) => {
+  return new Promise((resolve) => {
+    auth.checkSession({}, (err, result) => {
+      if (err) {
+        dispatch({ type: 'LOGIN_EXPIRED' });
+        ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
+        history.replace('/');
+        resolve({ renewed: false });
+      } else {
+        setSession(result);
+        const { expiresAt } = result;
+        dispatch({
+          type: 'AUTH_RENEW_SUCCESS',
+          payload: {
+            accessToken: result.accessToken,
+            idToken: result.idToken,
+            expiresAt,
+          },
+        });
+        ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
+        resolve({ renewed: true });
+        setLoginExpiryTimeout(dispatch);
+      }
+    });
+  });
+};
+
 const setLoginExpiryTimeout = (dispatch) => {
   const sessionTimeout = localStorage.getItem(AUTH_EXPIRES_AT) - new Date().getTime();
   if (sessionTimeout > 0) {
-    setTimeout(() => {
-      dispatch({ type: 'LOGIN_EXPIRED' });
-      history.replace('/');
+    clearTimeout(window.authRenewTimeout);
+    window.authRenewTimeout = setTimeout(() => {
+      renewToken(dispatch).then((res) => {
+        if (res.renewed) {
+          setLoginExpiryTimeout(dispatch);
+        }
+      });
     }, sessionTimeout);
   }
 };
 
 export function checkAuthentication() {
   return (dispatch) => {
-    const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
-    if (new Date().getTime() < expiresAt) {
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: {
-          accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
-          idToken: localStorage.getItem(AUTH_ID_TOKEN),
-          expiresAt,
-        },
-      });
-      setLoginExpiryTimeout(dispatch);
+    if (localStorage.getItem(AUTH_EXPIRES_AT)) {
+      const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
+      if (new Date().getTime() < expiresAt) {
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: {
+            accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
+            idToken: localStorage.getItem(AUTH_ID_TOKEN),
+            expiresAt,
+          },
+        });
+        setLoginExpiryTimeout(dispatch);
+      } else {
+        renewToken(dispatch).then((res) => {
+          if (res.renewed) {
+            setLoginExpiryTimeout(dispatch);
+          }
+        });
+      }
     }
   };
 }
@@ -77,6 +116,7 @@ export function receiveLogin() {
             expiresAt,
           },
         });
+        ReactGA.event({ category: 'Authentication', action: 'Login Success' });
         setLoginExpiryTimeout(dispatch);
         history.replace('/');
       } else if (err) {
@@ -92,10 +132,8 @@ export function logout() {
     localStorage.removeItem(AUTH_ACCESS_TOKEN);
     localStorage.removeItem(AUTH_ID_TOKEN);
     localStorage.removeItem(AUTH_EXPIRES_AT);
-    ReactGA.event({
-      category: 'Authentication',
-      action: 'Logout',
-    });
+    clearTimeout(window.authRenewTimeout);
+    ReactGA.event({ category: 'Authentication', action: 'Logout' });
     dispatch({ type: 'LOGOUT_SUCCESS' });
     history.replace('/');
   };
