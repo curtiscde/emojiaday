@@ -27,7 +27,30 @@ const setLoginExpiryTimeout = (dispatch) => {
   const sessionTimeout = localStorage.getItem(AUTH_EXPIRES_AT) - new Date().getTime();
   if (sessionTimeout > 0) {
     setTimeout(() => {
-      dispatch({ type: 'LOGIN_EXPIRED' });
+      if (config.features.authRenew) {
+        auth.checkSession({}, (err, result) => {
+          if (err) {
+            dispatch({ type: 'LOGIN_EXPIRED' });
+            ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
+          } else {
+            setSession(result);
+            const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
+            dispatch({
+              type: 'AUTH_RENEW_SUCCESS',
+              payload: {
+                accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
+                idToken: localStorage.getItem(AUTH_ID_TOKEN),
+                expiresAt,
+              },
+            });
+            ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
+          }
+        });
+      }
+      else {
+        dispatch({ type: 'LOGIN_EXPIRED' });
+        ReactGA.event({ category: 'Authentication', action: 'Login Expired' });
+      }
       history.replace('/');
     }, sessionTimeout);
   }
@@ -77,6 +100,7 @@ export function receiveLogin() {
             expiresAt,
           },
         });
+        ReactGA.event({ category: 'Authentication', action: 'Login Success' });
         setLoginExpiryTimeout(dispatch);
         history.replace('/');
       } else if (err) {
@@ -92,10 +116,7 @@ export function logout() {
     localStorage.removeItem(AUTH_ACCESS_TOKEN);
     localStorage.removeItem(AUTH_ID_TOKEN);
     localStorage.removeItem(AUTH_EXPIRES_AT);
-    ReactGA.event({
-      category: 'Authentication',
-      action: 'Logout',
-    });
+    ReactGA.event({ category: 'Authentication', action: 'Logout' });
     dispatch({ type: 'LOGOUT_SUCCESS' });
     history.replace('/');
   };
