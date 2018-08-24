@@ -44,10 +44,10 @@ const setLoginExpiryTimeout = (dispatch) => {
               },
             });
             ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
+            setLoginExpiryTimeout(dispatch);
           }
         });
-      }
-      else {
+      } else {
         dispatch({ type: 'LOGIN_EXPIRED' });
         ReactGA.event({ category: 'Authentication', action: 'Login Expired' });
       }
