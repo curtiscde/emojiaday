@@ -71,6 +71,36 @@ export function checkAuthentication() {
           },
         });
         setLoginExpiryTimeout(dispatch);
+      } else {
+        // Token exists, but has expired
+
+        if (config.features.authRenew) {
+          auth.checkSession({}, (err, result) => {
+            if (err) {
+              dispatch({ type: 'LOGIN_EXPIRED' });
+              ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
+              history.replace('/');
+            } else {
+              setSession(result);
+              const { expiresAt } = result;
+              dispatch({
+                type: 'AUTH_RENEW_SUCCESS',
+                payload: {
+                  accessToken: result.accessToken,
+                  idToken: result.idToken,
+                  expiresAt,
+                },
+              });
+              ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
+              setLoginExpiryTimeout(dispatch);
+            }
+          });
+        } else {
+          dispatch({ type: 'LOGIN_EXPIRED' });
+          ReactGA.event({ category: 'Authentication', action: 'Login Expired' });
+          history.replace('/');
+        }
+        
       }
     }
   };
