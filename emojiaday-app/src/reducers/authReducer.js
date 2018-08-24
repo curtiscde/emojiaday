@@ -23,6 +23,15 @@ export default function reducer(state = {
         isAuthenticated: false,
       };
     }
+    case 'AUTH_RENEW_SUCCESS': {
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        expiresAt: action.payload.expiresAt,
+        idToken: action.payload.idToken,
+        isAuthenticated: true,
+      };
+    }
     case 'LOGOUT_SUCCESS': {
       return {
         ...state,

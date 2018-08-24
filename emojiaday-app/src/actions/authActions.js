@@ -34,12 +34,12 @@ const setLoginExpiryTimeout = (dispatch) => {
             ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
           } else {
             setSession(result);
-            const expiresAt = JSON.parse(localStorage.getItem(AUTH_EXPIRES_AT));
+            const { expiresAt } = result;
             dispatch({
               type: 'AUTH_RENEW_SUCCESS',
               payload: {
-                accessToken: localStorage.getItem(AUTH_ACCESS_TOKEN),
-                idToken: localStorage.getItem(AUTH_ID_TOKEN),
+                accessToken: result.accessToken,
+                idToken: result.idToken,
                 expiresAt,
               },
             });
