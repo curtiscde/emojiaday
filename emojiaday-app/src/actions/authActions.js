@@ -23,36 +23,43 @@ const setSession = (authResult) => {
   localStorage.setItem(AUTH_EXPIRES_AT, expiresAt);
 };
 
+const renewToken = (dispatch) => {
+  return new Promise((resolve) => {
+    auth.checkSession({}, (err, result) => {
+      if (err) {
+        dispatch({ type: 'LOGIN_EXPIRED' });
+        ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
+        history.replace('/');
+        resolve({ renewed: false });
+      } else {
+        setSession(result);
+        const { expiresAt } = result;
+        dispatch({
+          type: 'AUTH_RENEW_SUCCESS',
+          payload: {
+            accessToken: result.accessToken,
+            idToken: result.idToken,
+            expiresAt,
+          },
+        });
+        ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
+        resolve({ renewed: true });
+        setLoginExpiryTimeout(dispatch);
+      }
+    });
+  });
+};
+
 const setLoginExpiryTimeout = (dispatch) => {
   const sessionTimeout = localStorage.getItem(AUTH_EXPIRES_AT) - new Date().getTime();
   if (sessionTimeout > 0) {
-    setTimeout(() => {
-      if (config.features.authRenew) {
-        auth.checkSession({}, (err, result) => {
-          if (err) {
-            dispatch({ type: 'LOGIN_EXPIRED' });
-            ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
-            history.replace('/');
-          } else {
-            setSession(result);
-            const { expiresAt } = result;
-            dispatch({
-              type: 'AUTH_RENEW_SUCCESS',
-              payload: {
-                accessToken: result.accessToken,
-                idToken: result.idToken,
-                expiresAt,
-              },
-            });
-            ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
-            setLoginExpiryTimeout(dispatch);
-          }
-        });
-      } else {
-        dispatch({ type: 'LOGIN_EXPIRED' });
-        ReactGA.event({ category: 'Authentication', action: 'Login Expired' });
-        history.replace('/');
-      }
+    clearTimeout(window.authRenewTimeout);
+    window.authRenewTimeout = setTimeout(() => {
+      renewToken(dispatch).then((res) => {
+        if (res.renewed) {
+          setLoginExpiryTimeout(dispatch);
+        }
+      });
     }, sessionTimeout);
   }
 };
@@ -72,35 +79,11 @@ export function checkAuthentication() {
         });
         setLoginExpiryTimeout(dispatch);
       } else {
-        // Token exists, but has expired
-
-        if (config.features.authRenew) {
-          auth.checkSession({}, (err, result) => {
-            if (err) {
-              dispatch({ type: 'LOGIN_EXPIRED' });
-              ReactGA.event({ category: 'Authentication', action: 'Token Renew Error' });
-              history.replace('/');
-            } else {
-              setSession(result);
-              const { expiresAt } = result;
-              dispatch({
-                type: 'AUTH_RENEW_SUCCESS',
-                payload: {
-                  accessToken: result.accessToken,
-                  idToken: result.idToken,
-                  expiresAt,
-                },
-              });
-              ReactGA.event({ category: 'Authentication', action: 'Token Renew Success' });
-              setLoginExpiryTimeout(dispatch);
-            }
-          });
-        } else {
-          dispatch({ type: 'LOGIN_EXPIRED' });
-          ReactGA.event({ category: 'Authentication', action: 'Login Expired' });
-          history.replace('/');
-        }
-        
+        renewToken(dispatch).then((res) => {
+          if (res.renewed) {
+            setLoginExpiryTimeout(dispatch);
+          }
+        });
       }
     }
   };
@@ -149,6 +132,7 @@ export function logout() {
     localStorage.removeItem(AUTH_ACCESS_TOKEN);
     localStorage.removeItem(AUTH_ID_TOKEN);
     localStorage.removeItem(AUTH_EXPIRES_AT);
+    clearTimeout(window.authRenewTimeout);
     ReactGA.event({ category: 'Authentication', action: 'Logout' });
     dispatch({ type: 'LOGOUT_SUCCESS' });
     history.replace('/');
