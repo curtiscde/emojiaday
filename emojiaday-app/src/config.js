@@ -7,7 +7,7 @@ const prod = {
   },
   debug: false,
   features: {
-    authRenew: false,
+    authRenew: true,
   },
   googleAnalytics: {
     trackingId: 'UA-123240885-1',
